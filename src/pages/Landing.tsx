@@ -145,7 +145,7 @@ const Landing: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <span className="gradient-text font-extrabold text-lg">Lognet SVA</span>
             <p className="text-sm text-muted-foreground text-center">
-              © 2026 Lognet Telecom. Termos | Privacidade | Suporte: suporte@lognetbr.com.br
+              © 2026 Lognet Telecom. <Link to="/terms" className="hover:text-primary transition-colors">Termos</Link> | <Link to="/privacy" className="hover:text-primary transition-colors">Privacidade</Link> | Suporte: suporte@lognetbr.com.br
             </p>
           </div>
         </div>
