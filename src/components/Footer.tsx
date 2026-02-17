@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
       </div>
 
       <div className="border-t border-border py-4">
-        <div className="container mx-auto px-4 text-sm text-muted-foreground">© {year} <a href="https://lognetbr.com.br/" target="_blank" rel="noreferrer" className="hover:text-foreground">BRLognet</a>. Todos os direitos reservados.</div>
+        <div className="container mx-auto px-4 text-sm text-muted-foreground text-center">© 2026 <a href="https://lognetbr.com.br/" target="_blank" rel="noreferrer" className="text-orange-400 hover:text-orange-500">BRLognet</a>. Todos os direitos reservados.</div>
       </div>
     </footer>
   );
