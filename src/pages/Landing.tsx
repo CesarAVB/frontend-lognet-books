@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { BookOpen, Headphones, Smartphone, Wifi, Star, ChevronRight } from 'lucide-react';
 import { plans, testimonials } from '@/data/mockData';
 import heroBg from '@/assets/hero-bg.png';
+import logoImg from '@/assets/logoh.png';
 
 const Landing: React.FC = () => {
   return (
@@ -11,7 +12,9 @@ const Landing: React.FC = () => {
       {/* Nav */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur border-b border-border">
         <div className="container mx-auto flex items-center justify-between h-16 px-4">
-          <span className="gradient-text text-xl font-extrabold">Lognet SVA</span>
+          <Link to="/">
+            <img src={logoImg} alt="Lognet SVA" className="h-8 w-auto" />
+          </Link>
           <div className="flex items-center gap-3">
             <Link to="/login"><Button variant="ghost" size="sm">Entrar</Button></Link>
             <Link to="/register"><Button variant="hero" size="sm">Comece Grátis</Button></Link>
@@ -143,7 +146,9 @@ const Landing: React.FC = () => {
       <footer className="border-t border-border py-8 sm:py-12">
         <div className="container mx-auto px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="gradient-text font-extrabold text-lg">Lognet SVA</span>
+            <Link to="/">
+              <img src={logoImg} alt="Lognet SVA" className="h-6 w-auto" />
+            </Link>
             <p className="text-sm text-muted-foreground text-center">
               © 2026 <a href="https://lognetbr.com.br/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">BRLognet</a>. Todos os direitos reservados. | <Link to="/privacy" className="hover:text-primary transition-colors">Privacidade</Link>
             </p>

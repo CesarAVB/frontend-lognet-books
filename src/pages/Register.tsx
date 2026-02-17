@@ -4,6 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { Eye, EyeOff, Mail, User } from 'lucide-react';
+import logoImg from '@/assets/logoh.png';
 
 const Register: React.FC = () => {
   const [name, setName] = useState('');
@@ -28,7 +29,9 @@ const Register: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md animate-scale-in">
         <div className="text-center mb-8">
-          <Link to="/" className="gradient-text text-2xl font-extrabold">Lognet SVA</Link>
+          <Link to="/">
+            <img src={logoImg} alt="Lognet SVA" className="h-8 w-auto mx-auto" />
+          </Link>
           <p className="text-muted-foreground mt-2">Crie sua conta e comece 7 dias grátis</p>
         </div>
 

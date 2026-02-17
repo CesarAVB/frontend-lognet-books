@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import {
   Home, BookOpen, Heart, Download, User, LogOut, Menu, X, Search, Crown, Library
 } from 'lucide-react';
+import logoImg from '@/assets/logoh.png';
 
 const navItems = [
   { to: '/', icon: Home, label: 'Home' },
@@ -37,7 +38,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           </button>
 
           <Link to="/" className="flex items-center gap-2 font-bold text-lg">
-            <span className="gradient-text text-xl font-extrabold">Lognet SVA</span>
+            <img src={logoImg} alt="Lognet SVA" className="h-6 w-auto" />
           </Link>
 
           <form onSubmit={handleSearch} className="hidden sm:flex flex-1 max-w-md mx-auto">

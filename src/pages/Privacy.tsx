@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import logoImg from '@/assets/logoh.png';
 
 const Privacy: React.FC = () => {
   return (
@@ -11,7 +12,7 @@ const Privacy: React.FC = () => {
         <div className="container mx-auto flex items-center justify-between h-16 px-4">
           <Link to="/" className="flex items-center gap-2">
             <ArrowLeft size={20} />
-            <span className="gradient-text text-xl font-extrabold">Lognet SVA</span>
+            <img src={logoImg} alt="Lognet SVA" className="h-8 w-auto" />
           </Link>
         </div>
       </header>
@@ -202,7 +203,9 @@ const Privacy: React.FC = () => {
       <footer className="border-t border-border py-8 sm:py-12 mt-12">
         <div className="container mx-auto px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="gradient-text font-extrabold text-lg">Lognet SVA</span>
+            <Link to="/">
+              <img src={logoImg} alt="Lognet SVA" className="h-6 w-auto" />
+            </Link>
             <p className="text-sm text-muted-foreground text-center">
               © 2026 <a href="https://lognetbr.com.br/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">BRLognet</a>. Todos os direitos reservados. | <Link to="/privacy" className="hover:text-primary transition-colors">Privacidade</Link>
             </p>
