@@ -20,9 +20,9 @@ const Landing: React.FC = () => {
       </header>
 
       {/* Hero */}
-      <section className="relative pt-16 overflow-hidden">
+      <section className="relative pt-16 overflow-hidden min-h-screen flex items-center">
         <div className="absolute inset-0">
-          <img src={heroBg} alt="" className="w-full h-full object-cover" />
+          <img src={heroBg} alt="" className="w-full h-full object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/40" />
         </div>
         <div className="relative container mx-auto px-4 py-20 sm:py-32 md:py-40">
@@ -145,7 +145,7 @@ const Landing: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <span className="gradient-text font-extrabold text-lg">Lognet SVA</span>
             <p className="text-sm text-muted-foreground text-center">
-              © 2026 Lognet Telecom. <Link to="/terms" className="hover:text-primary transition-colors">Termos</Link> | <Link to="/privacy" className="hover:text-primary transition-colors">Privacidade</Link> | Suporte: suporte@lognetbr.com.br
+              © 2026 <a href="https://lognetbr.com.br/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">BRLognet</a>. Todos os direitos reservados. | <Link to="/privacy" className="hover:text-primary transition-colors">Privacidade</Link>
             </p>
           </div>
         </div>

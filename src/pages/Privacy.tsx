@@ -204,7 +204,7 @@ const Privacy: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <span className="gradient-text font-extrabold text-lg">Lognet SVA</span>
             <p className="text-sm text-muted-foreground text-center">
-              © 2026 Lognet Telecom. Termos | Privacidade | Suporte: suporte@lognetbr.com.br
+              © 2026 <a href="https://lognetbr.com.br/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">BRLognet</a>. Todos os direitos reservados. | <Link to="/privacy" className="hover:text-primary transition-colors">Privacidade</Link>
             </p>
           </div>
         </div>
