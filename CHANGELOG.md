@@ -1,3 +1,15 @@
+## [1.3.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.2.0...v1.3.0) (2026-02-17)
+
+### Features
+
+* adicionar componente Footer e integrá-lo nas páginas AppLayout e Landing ([75c58bf](https://github.com/CesarAVB/frontend-lognet-books/commit/75c58bfebb789703a0b7d516d1774d08b4e05d81))
+* adicionar ícones de contato no rodapé e atualizar informações de contato ([6bc047b](https://github.com/CesarAVB/frontend-lognet-books/commit/6bc047b73427af3a20cc3059f4349c6d39e63a96))
+* reformular a página de login com novos elementos visuais e informações sobre recursos ([1965000](https://github.com/CesarAVB/frontend-lognet-books/commit/19650004ccfdd8f60bac60ce5ad4e3e8ec08064e))
+
+### Bug Fixes
+
+* corrigir ano de direitos autorais no rodapé do componente Footer ([2fa23a3](https://github.com/CesarAVB/frontend-lognet-books/commit/2fa23a37f1d757a1af3d34bb82be3d3be7ff8a0a))
+
 ## [1.2.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.1.0...v1.2.0) (2026-02-17)
 
 ### Features
