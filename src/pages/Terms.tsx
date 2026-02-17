@@ -161,4 +161,4 @@ const Terms: React.FC = () => {
   );
 };
 
-export default Privacy;
+export default Terms;
