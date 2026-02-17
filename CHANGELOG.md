@@ -1,3 +1,9 @@
+## [1.4.1](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.4.0...v1.4.1) (2026-02-17)
+
+### Bug Fixes
+
+* corrigir exportação do componente de Termos ([d64c10e](https://github.com/CesarAVB/frontend-lognet-books/commit/d64c10ee952c95ac657ac2053c4ef32e9a352664))
+
 ## [1.4.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.3.0...v1.4.0) (2026-02-17)
 
 ### Features
