@@ -32,7 +32,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-amber-600 bg-amber-500/95 backdrop-blur supports-[backdrop-filter]:bg-amber-500/90 text-white">
         <div className="flex h-full items-center gap-4 px-4">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden text-foreground">
             {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
