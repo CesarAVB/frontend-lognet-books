@@ -5,6 +5,7 @@ import { BookOpen, Headphones, Smartphone, Wifi, Star, ChevronRight } from 'luci
 import { plans, testimonials } from '@/data/mockData';
 import heroBg from '@/assets/hero-bg.png';
 import logoImg from '@/assets/logoh.png';
+import Footer from '@/components/Footer';
 
 const Landing: React.FC = () => {
   return (
@@ -142,19 +143,7 @@ const Landing: React.FC = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border py-8 sm:py-12">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <Link to="/">
-              <img src={logoImg} alt="Lognet SVA" className="h-10 w-auto" />
-            </Link>
-            <p className="text-sm text-muted-foreground text-center">
-              © 2026 <a href="https://lognetbr.com.br/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">BRLognet</a>. Todos os direitos reservados. | <Link to="/privacy" className="hover:text-primary transition-colors">Privacidade</Link>
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

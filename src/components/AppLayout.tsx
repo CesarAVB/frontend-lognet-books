@@ -7,6 +7,7 @@ import {
   Home, BookOpen, Heart, Download, User, LogOut, Menu, X, Search, Crown, Library
 } from 'lucide-react';
 import logoImg from '@/assets/logoh.png';
+import Footer from './Footer';
 
 const navItems = [
   { to: '/', icon: Home, label: 'Home' },
@@ -118,6 +119,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           {children}
         </div>
       </main>
+      <Footer />
     </div>
   );
 };
