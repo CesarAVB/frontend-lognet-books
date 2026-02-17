@@ -49,7 +49,7 @@ jobs:
           path: dist/
 
           # Pasta de destino no servidor (onde o Nginx serve os arquivos)
-          remote_path: /var/www/html/projetos_web/netmap/
+          remote_path: /var/www/html/projetos_web/logbooks/
 
           # Dados de conexão SSH (armazenados nos Secrets do GitHub)
           remote_host: ${{ secrets.SERVER_HOST }}      # IP ou domínio do servidor
