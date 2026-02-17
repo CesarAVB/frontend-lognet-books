@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2 text-sm">
               <li><Link to="/terms" className="text-amber-50 hover:text-white transition-colors">Termos de uso</Link></li>
               <li><Link to="/privacy" className="text-amber-50 hover:text-white transition-colors">Política de privacidade</Link></li>
-              <li><a href="mailto:contato@lognetrj.com.br" className="text-amber-50 hover:text-white transition-colors">Ajuda para leitores</a></li>
+
               <li><a href="mailto:contato@lognetrj.com.br" className="text-amber-50 hover:text-white transition-colors">Fale conosco</a></li>
             </ul>
           </div>
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-center">
                 <FontAwesomeIcon icon={["fab", "whatsapp"]} className="w-5 h-5 text-amber-50 mr-3" />
-                <a href="https://wa.me/5508000000192" target="_blank" rel="noreferrer" className="text-amber-50 hover:text-white transition-colors">WhatsApp: 0800 000 0192</a>
+                <a href="https://wa.me/5508000000192" target="_blank" rel="noreferrer" className="text-amber-50 hover:text-white transition-colors">0800 000 0192</a>
               </li>
               <li className="flex items-center">
                 <FontAwesomeIcon icon={["fas", "globe"]} className="w-5 h-5 text-amber-50 mr-3" />
