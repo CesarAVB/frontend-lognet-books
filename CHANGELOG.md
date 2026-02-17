@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.1.0...v1.2.0) (2026-02-17)
+
+### Features
+
+* atualizar layout da página de Landing e Privacy, incluindo novos links e ajustes de estilo ([ed2ef76](https://github.com/CesarAVB/frontend-lognet-books/commit/ed2ef7657d184cfc17f66da64732b75e8f0b7122))
+
 ## [1.1.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.0.0...v1.1.0) (2026-02-17)
 
 ### Features
