@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logoImg from '@/assets/logoh.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();
@@ -30,16 +31,25 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-foreground font-semibold mb-4">Contato</h4>
             <ul className="space-y-3 text-sm">
-              <li><a href="mailto:contato@lognetbr.com.br" className="hover:text-foreground transition-colors">contato@lognetbr.com.br</a></li>
-              <li><a href="tel:+5521976873801" className="hover:text-foreground transition-colors">(21) 97687-3801</a></li>
-              <li><a href="https://lognetbr.com.br/" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Lognet</a></li>
+              <li className="flex items-center">
+                <FontAwesomeIcon icon={["fas", "envelope"]} className="w-5 h-5 text-orange-400 mr-3" />
+                <a href="mailto:contato@lognetbr.com.br" className="hover:text-foreground transition-colors">contato@lognetbr.com.br</a>
+              </li>
+              <li className="flex items-center">
+                <FontAwesomeIcon icon={["fab", "whatsapp"]} className="w-5 h-5 text-orange-400 mr-3" />
+                <a href="https://wa.me/5508000000192" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">WhatsApp: 0800 000 0192</a>
+              </li>
+              <li className="flex items-center">
+                <FontAwesomeIcon icon={["fas", "globe"]} className="w-5 h-5 text-orange-400 mr-3" />
+                <a href="https://lognetbr.com.br/" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">lognetbr.com.br</a>
+              </li>
             </ul>
           </div>
         </div>
       </div>
 
       <div className="border-t border-border py-4">
-        <div className="container mx-auto px-4 text-sm text-muted-foreground">© {year} BRLognet. Todos os direitos reservados.</div>
+        <div className="container mx-auto px-4 text-sm text-muted-foreground">© {year} <a href="https://lognetbr.com.br/" target="_blank" rel="noreferrer" className="hover:text-foreground">BRLognet</a>. Todos os direitos reservados.</div>
       </div>
     </footer>
   );
