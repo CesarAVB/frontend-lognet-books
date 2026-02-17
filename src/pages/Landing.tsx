@@ -18,7 +18,6 @@ const Landing: React.FC = () => {
           </Link>
           <div className="flex items-center gap-3">
             <Link to="/login"><Button variant="ghost" size="sm">Entrar</Button></Link>
-            <Link to="/register"><Button variant="hero" size="sm">Comece Grátis</Button></Link>
           </div>
         </div>
       </header>

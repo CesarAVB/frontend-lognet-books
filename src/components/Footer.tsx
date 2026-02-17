@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="mt-12 bg-background border-t border-border text-muted-foreground">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="flex flex-col gap-4">
             <Link to="/" className="flex items-center gap-3">
               <img src={logoImg} alt="Lognet" className="h-10 w-auto" />
@@ -25,6 +25,16 @@ const Footer: React.FC = () => {
               <li><Link to="/plans" className="hover:text-foreground transition-colors">Planos</Link></li>
               <li><Link to="/downloads" className="hover:text-foreground transition-colors">Downloads</Link></li>
               <li><Link to="/privacy" className="hover:text-foreground transition-colors">Privacidade</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-foreground font-semibold mb-4">Saiba mais</h4>
+            <ul className="space-y-2 text-sm">
+              <li><Link to="/terms" className="hover:text-foreground transition-colors">Termos de uso</Link></li>
+              <li><Link to="/privacy" className="hover:text-foreground transition-colors">Política de privacidade</Link></li>
+              <li><a href="mailto:contato@lognetbr.com.br" className="hover:text-foreground transition-colors">Ajuda para leitores</a></li>
+              <li><a href="mailto:contato@lognetbr.com.br" className="hover:text-foreground transition-colors">Fale conosco</a></li>
             </ul>
           </div>
 

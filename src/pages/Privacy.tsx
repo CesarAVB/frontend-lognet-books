@@ -18,177 +18,130 @@ const Privacy: React.FC = () => {
       </header>
 
       {/* Content */}
-      <main className="container mx-auto px-4 py-8 sm:py-12 max-w-4xl">
-        <div className="prose max-w-none">
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-8">
-            Política de Privacidade
-          </h1>
+      <main className="container mx-auto px-4 py-8 sm:py-12 max-w-4xl prose">
+        <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-6">Política de Privacidade</h1>
+        <h2 className="text-lg font-semibold mb-6">POLÍTICA DE PRIVACIDADE – LogBooks</h2>
 
-          {/* LGPD Section */}
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-foreground mb-4">
-              Lei Geral de Proteção de Dados Pessoais (LGPD)
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              A Lei Geral de Proteção de Dados Pessoais (LGPD), Lei n° 13.709/2018, foi promulgada para proteger os direitos fundamentais de liberdade e de privacidade e a livre formação da personalidade de cada indivíduo. A Lei fala sobre o tratamento de dados pessoais, dispostos em meio físico ou digital, feito por pessoa física ou jurídica de direito público ou privado, englobando um amplo conjunto de operações que podem ocorrer em meios manuais ou digitais.
-            </p>
-            <p className="text-sm text-muted-foreground italic">
-              Informação provida do site gov.br na página Ministério da Cidadania.
-            </p>
-          </section>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">1. INTRODUÇÃO</h3>
+          <p>
+            A presente Política de Privacidade tem por objetivo esclarecer e informar, de forma transparente, como a “LogBooks Editora, Produtos e Serviços Digitais Ltda.” (“Nós” ou “LogBooks”), trata os dados pessoais das pessoas com quem interage como Usuários (a partir de agora também denominados “Você”) e como tais dados são coletados, utilizados, armazenados, tratados e protegidos no contexto da LogBooks (“PLATAFORMA”).
+          </p>
+          <p>
+            Para os fins desta Política de Privacidade, a LogBooks será considerada a Controladora de Dados. Os detalhes de contato são fornecidos ao final desta Política.
+          </p>
+          <p>
+            Ao se cadastrar ou usar, de qualquer forma, a PLATAFORMA ou o website da LogBooks, bem como ao clicar “EU ACEITO”, você concorda com esta Política de Privacidade e com todos os seus termos e condições.
+          </p>
+        </section>
 
-          {/* Privacy Policy */}
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-foreground mb-4">
-              Política de Privacidade
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              A sua privacidade é importante para nós. É política da LOGNET respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no nosso site.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como será usado.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Apenas retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado. Quando armazenamos dados, protegemos dentro de meios comercialmente aceitáveis para evitar perdas e roubos, bem como acesso, divulgação, cópia, uso ou modificação não autorizados.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              O nosso site pode ter links para sites externos que não são operados por nós. Esteja ciente de que não temos controle sobre o conteúdo e práticas desses sites e não podemos aceitar responsabilidade por suas respectivas políticas de privacidade.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Você é livre para recusar a nossa solicitação de informações pessoais, entendendo que talvez não possamos fornecer alguns dos serviços desejados.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              O uso continuado de nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais. Se você tiver alguma dúvida sobre como lidamos com dados do usuário e informações pessoais, entre em contacto connosco.
-            </p>
-          </section>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">2. FINALIDADES DA POLÍTICA DE PRIVACIDADE</h3>
+          <p>
+            Esta seção explica as finalidades do tratamento de dados: transparência sobre motivos da coleta, operações de tratamento, direitos do usuário e bases legais aplicáveis.
+          </p>
+        </section>
 
-          {/* Google AdSense */}
-          <section className="mb-8">
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              O serviço Google AdSense que usamos para veicular publicidade usa um cookie DoubleClick para veicular anúncios mais relevantes em toda a Web e limitar o número de vezes que um determinado anúncio é exibido para você.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Para mais informações sobre o Google AdSense, consulte as FAQs oficiais sobre privacidade do Google AdSense.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Utilizamos anúncios para compensar os custos de funcionamento deste site e fornecer financiamento para futuros desenvolvimentos. Os cookies de publicidade comportamental usados por este site foram projetados para garantir que você forneça os anúncios mais relevantes sempre que possível, rastreando anonimamente seus interesses e apresentando coisas semelhantes que possam ser do seu interesse.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Vários parceiros anunciam em nosso nome e os cookies de rastreamento de afiliados simplesmente nos permitem ver se nossos clientes acessaram o site através de um dos sites de nossos parceiros, para que possamos creditá-los adequadamente e, quando aplicável, permitir que nossos parceiros afiliados ofereçam qualquer promoção que pode fornecê-lo para fazer uma compra.
-            </p>
-          </section>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">3. DADOS PESSOAIS</h3>
+          <p className="mb-2">Dados fornecidos pelo Usuário (exemplos):</p>
+          <ul className="list-disc list-inside mb-4 text-muted-foreground">
+            <li>Nome</li>
+            <li>CPF</li>
+            <li>E-mail</li>
+            <li>Telefone celular</li>
+            <li>Data de nascimento</li>
+          </ul>
+          <p className="mb-2">Dados adicionais que podem ser fornecidos:</p>
+          <ul className="list-disc list-inside mb-4 text-muted-foreground">
+            <li>RG</li>
+            <li>Endereço</li>
+            <li>Fotografia (selfie)</li>
+            <li>Digital</li>
+            <li>Placa de veículo</li>
+          </ul>
+          <p>
+            A partir do uso da PLATAFORMA também são gerados dados técnicos e estatísticos (ex.: uso, consumo, avaliações) que permitem aprimorar recomendações e serviços.
+          </p>
+        </section>
 
-          {/* User Commitment */}
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-foreground mb-4">
-              Compromisso do Usuário
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              O usuário se compromete a fazer uso adequado dos conteúdos e da informação que a LOGNET oferece no site e com caráter enunciativo, mas não limitativo:
-            </p>
-            <ul className="list-disc list-inside text-muted-foreground leading-relaxed mb-4 space-y-2">
-              <li>A) Não se envolver em atividades que sejam ilegais ou contrárias à boa fé a à ordem pública;</li>
-              <li>B) Não difundir propaganda ou conteúdo de natureza racista, xenofóbica, ERROR ou azar, qualquer tipo de pornografia ilegal, de apologia ao terrorismo ou contra os direitos humanos;</li>
-              <li>C) Não causar danos aos sistemas físicos (hardwares) e lógicos (softwares) da LOGNET, de seus fornecedores ou terceiros, para introduzir ou disseminar vírus informáticos ou quaisquer outros sistemas de hardware ou software que sejam capazes de causar danos anteriormente mencionados.</li>
-            </ul>
-          </section>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">4. COLETA DE DADOS PESSOAIS</h3>
+          <p>
+            Os dados são, em regra, fornecidos pelo próprio Usuário no cadastro ou durante o uso da PLATAFORMA. Também poderemos tratar dados de forma agregada e anônima para fins estatísticos.
+          </p>
+        </section>
 
-          {/* More Information */}
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-foreground mb-4">
-              Mais informações
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Esperemos que esteja esclarecido e, como mencionado anteriormente, se houver algo que você não tem certeza se precisa ou não, geralmente é mais seguro deixar os cookies ativados, caso interaja com um dos recursos que você usa em nosso site.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Esta política é efetiva a partir de <strong>21 de Novembro de 2022</strong>.
-            </p>
-          </section>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">5. OPERAÇÕES DE TRATAMENTO E FINALIDADES</h3>
+          <p className="mb-2">Principais finalidades e operações de tratamento incluem:</p>
+          <ul className="list-disc list-inside mb-4 text-muted-foreground">
+            <li>Cadastro e verificação cadastral (Base legal: execução de contrato)</li>
+            <li>Atendimento e suporte ao usuário (Base legal: execução de contrato / legítimo interesse)</li>
+            <li>Análise de avaliações e aprimoramento de produtos (Base legal: legítimo interesse / consentimento)</li>
+            <li>Marketing e comunicações (Base legal: consentimento / legítimo interesse)</li>
+            <li>Operacionalização da Plataforma (relatórios, transferências de direitos, etc.)</li>
+          </ul>
+        </section>
 
-          {/* Terms and Conditions */}
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-foreground mb-6">
-              Termos e Condições
-            </h2>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">6. COMPARTILHAMENTO DE DADOS COM TERCEIROS</h3>
+          <p>
+            Compartilhamos dados com prestadores de serviços (hospedagem, analytics, pagamentos), autoridades competentes quando exigido por lei, e parceiros quando necessário para a prestação do serviço, sempre observando obrigações contratuais de proteção de dados.
+          </p>
+        </section>
 
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">1. Termos</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Ao acessar ao site LOGNET, concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis. Se você não concordar com algum desses termos, está proibido de usar ou acessar este site. Os materiais contidos neste site são protegidos pelas leis de direitos autorais e marcas comerciais aplicáveis.
-                </p>
-              </div>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">7. TRANSFERÊNCIA INTERNACIONAL DE DADOS</h3>
+          <p>
+            Poderemos transferir dados para provedores localizados em outros países quando necessário — sempre observando as exigências legais e medidas contratuais de proteção de dados.
+          </p>
+        </section>
 
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">2. Uso de Licença</h3>
-                <p className="text-muted-foreground leading-relaxed mb-3">
-                  É concedida permissão para baixar temporariamente uma cópia dos materiais (informações ou software) no site LOGNET , apenas para visualização transitória pessoal e não comercial. Esta é a concessão de uma licença, não uma transferência de título e, sob esta licença, você não pode:
-                </p>
-                <ul className="list-disc list-inside text-muted-foreground leading-relaxed space-y-1">
-                  <li>modificar ou copiar os materiais;</li>
-                  <li>usar os materiais para qualquer finalidade comercial ou para exibição pública (comercial ou não comercial);</li>
-                  <li>tentar descompilar ou fazer engenharia reversa de qualquer software contido no site LOGNET;</li>
-                  <li>remover quaisquer direitos autorais ou outras notações de propriedade dos materiais; ou</li>
-                  <li>transferir os materiais para outra pessoa ou 'espelhe' os materiais em qualquer outro servidor.</li>
-                </ul>
-                <p className="text-muted-foreground leading-relaxed mt-3">
-                  Esta licença será automaticamente rescindida se você violar alguma dessas restrições e poderá ser rescindida por LOGNET a qualquer momento. Ao encerrar a visualização desses materiais ou após o término desta licença, você deve apagar todos os materiais baixados em sua posse, seja em formato eletrônico ou impresso.
-                </p>
-              </div>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">8. SEGURANÇA</h3>
+          <p>
+            Adotamos medidas técnicas e administrativas para proteger seus dados, contudo nenhum sistema é totalmente invulnerável. Em caso de incidente de segurança, notificaremos os titulares e autoridades conforme a legislação aplicável.
+          </p>
+        </section>
 
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">3. Isenção de responsabilidade</h3>
-                <p className="text-muted-foreground leading-relaxed mb-3">
-                  Os materiais no site da LOGNET são fornecidos 'como estão'. LOGNET não oferece garantias, expressas ou implícitas, e, por este meio, isenta e nega todas as outras garantias, incluindo, sem limitação, garantias implícitas ou condições de comercialização, adequação a um fim específico ou não violação de propriedade intelectual ou outra violação de direitos.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  Além disso, a LOGNET não garante ou faz qualquer representação relativa à precisão, aos resultados prováveis ou à confiabilidade do uso dos materiais em seu site ou de outra forma relacionado a esses materiais ou em sites vinculados a este site.
-                </p>
-              </div>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">9. COOKIES</h3>
+          <p>
+            Utilizamos cookies de sessão e persistentes para melhorar a experiência do usuário; você pode ajustar as preferências do seu navegador para bloquear cookies, tendo ciência de que algumas funcionalidades podem ser impactadas.
+          </p>
+        </section>
 
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">4. Limitações</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Em nenhum caso a LOGNET ou seus fornecedores serão responsáveis por quaisquer danos (incluindo, sem limitação, danos por perda de dados ou lucro ou devido a interrupção dos negócios) decorrentes do uso ou da incapacidade de usar os materiais em LOGNET, mesmo que LOGNET ou um representante autorizado da LOGNET tenha sido notificado oralmente ou por escrito da possibilidade de tais danos. Como algumas jurisdições não permitem limitações em garantias implícitas, ou limitações de responsabilidade por danos consequentes ou incidentais, essas limitações podem não se aplicar a você.
-                </p>
-              </div>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">10. QUALIDADE, RETENÇÃO E DIREITOS</h3>
+          <p>
+            Mantemos seus dados corretos e atualizados pelo tempo necessário à finalidade; você tem direitos de acesso, retificação, eliminação, oposição, portabilidade e reclamação junto à ANPD.
+          </p>
+        </section>
 
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">5. Precisão dos materiais</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Os materiais exibidos no site da LOGNET podem incluir erros técnicos, tipográficos ou fotográficos. LOGNET não garante que qualquer material em seu site seja preciso, completo ou atual. LOGNET pode fazer alterações nos materiais contidos em seu site a qualquer momento, sem aviso prévio. No entanto, LOGNET não se compromete a atualizar os materiais.
-                </p>
-              </div>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">11. INFORMAÇÕES DE CONTATO</h3>
+          <p>Em caso de dúvidas ou solicitações relativas a dados pessoais:</p>
+          <ul className="list-disc list-inside text-muted-foreground">
+            <li>E-mail: contato@lognetrj.com.br</li>
+            <li>Telefone: (11) 5645-1100</li>
+            <li>Endereço: Rua Cerro Corá, 2175 - Vila Romana, São Paulo - SP, 05061-450</li>
+            <li>Encarregado de Dados (DPO): Diego Orsatti — dpo@lognetrj.com.br</li>
+          </ul>
+        </section>
 
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">6. Links</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  O LOGNET não analisou todos os sites vinculados ao seu site e não é responsável pelo conteúdo de nenhum site vinculado. A inclusão de qualquer link não implica endosso por LOGNET do site. O uso de qualquer site vinculado é por conta e risco do usuário.
-                </p>
-              </div>
+        <section className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">12. ATUALIZAÇÕES E ALTERAÇÕES</h3>
+          <p>
+            Esta Política poderá ser atualizada periodicamente; a continuidade no uso da PLATAFORMA após alterações implica aceitação das novas condições.
+          </p>
+        </section>
 
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Modificações</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  O LOGNET pode revisar estes termos de serviço do site a qualquer momento, sem aviso prévio. Ao usar este site, você concorda em ficar vinculado à versão atual desses termos de serviço.
-                </p>
-              </div>
+        <section>
+          <h3 className="text-xl font-semibold mb-2">13. LEI APLICÁVEL</h3>
+          <p>Estas disposições são regidas pelas leis da República Federativa do Brasil.</p>
+        </section>
 
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Lei aplicável</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Estes termos e condições são regidos e interpretados de acordo com as leis da LOGNET e você se submete irrevogavelmente à jurisdição exclusiva dos tribunais naquele estado ou localidade.
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        {/* Back to Home */}
         <div className="mt-12 text-center">
           <Link to="/">
             <Button variant="outline" size="lg">
