@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { BookOpen, Headphones, Smartphone, Wifi, Star, ChevronRight } from 'lucide-react';
 import { plans, testimonials } from '@/data/mockData';
-import heroBg from '@/assets/hero-bg.jpg';
+import heroBg from '@/assets/hero-bg.png';
 
 const Landing: React.FC = () => {
   return (
