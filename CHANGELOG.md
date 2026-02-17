@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.3.0...v1.4.0) (2026-02-17)
+
+### Features
+
+* adicionar página de Termos e Condições e integrar no Footer ([e5402d8](https://github.com/CesarAVB/frontend-lognet-books/commit/e5402d8302226e004689316091e793905b22b169))
+
 ## [1.3.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.2.0...v1.3.0) (2026-02-17)
 
 ### Features
