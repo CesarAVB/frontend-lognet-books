@@ -38,7 +38,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           </button>
 
           <Link to="/" className="flex items-center gap-2 font-bold text-lg">
-            <img src={logoImg} alt="Lognet SVA" className="h-6 w-auto" />
+            <img src={logoImg} alt="Lognet SVA" className="h-10 w-auto" />
           </Link>
 
           <form onSubmit={handleSearch} className="hidden sm:flex flex-1 max-w-md mx-auto">

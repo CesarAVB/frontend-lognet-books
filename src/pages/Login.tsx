@@ -28,7 +28,7 @@ const Login: React.FC = () => {
       <div className="w-full max-w-md animate-scale-in">
         <div className="text-center mb-8">
           <Link to="/">
-            <img src={logoImg} alt="Lognet SVA" className="h-8 w-auto mx-auto" />
+            <img src={logoImg} alt="Lognet SVA" className="h-12 w-auto mx-auto" />
           </Link>
           <p className="text-muted-foreground mt-2">Entre na sua conta</p>
         </div>

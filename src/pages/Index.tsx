@@ -13,7 +13,7 @@ const Index: React.FC = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center animate-fade-in">
-          <img src={logoImg} alt="Lognet SVA" className="h-12 w-auto mx-auto mb-4" />
+          <img src={logoImg} alt="Lognet SVA" className="h-16 w-auto mx-auto mb-4" />
           <div className="mt-4">
             <FontAwesomeIcon icon={faSpinner} spin size="2x" className="text-primary" />
           </div>

@@ -12,7 +12,7 @@ const Privacy: React.FC = () => {
         <div className="container mx-auto flex items-center justify-between h-16 px-4">
           <Link to="/" className="flex items-center gap-2">
             <ArrowLeft size={20} />
-            <img src={logoImg} alt="Lognet SVA" className="h-8 w-auto" />
+            <img src={logoImg} alt="Lognet SVA" className="h-12 w-auto" />
           </Link>
         </div>
       </header>
@@ -204,7 +204,7 @@ const Privacy: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <Link to="/">
-              <img src={logoImg} alt="Lognet SVA" className="h-6 w-auto" />
+              <img src={logoImg} alt="Lognet SVA" className="h-10 w-auto" />
             </Link>
             <p className="text-sm text-muted-foreground text-center">
               © 2026 <a href="https://lognetbr.com.br/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">BRLognet</a>. Todos os direitos reservados. | <Link to="/privacy" className="hover:text-primary transition-colors">Privacidade</Link>
