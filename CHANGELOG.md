@@ -1,3 +1,9 @@
+## [1.4.2](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.4.1...v1.4.2) (2026-02-17)
+
+### Bug Fixes
+
+* atualizar texto de contato e link no rodapé ([9cc4136](https://github.com/CesarAVB/frontend-lognet-books/commit/9cc4136c28fde6533845d2186652afc4403ba0b6))
+
 ## [1.4.1](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.4.0...v1.4.1) (2026-02-17)
 
 ### Bug Fixes
