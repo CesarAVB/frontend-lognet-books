@@ -128,17 +128,17 @@ const Landing: React.FC = () => {
               ))}
             </div>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-background/50 to-background/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/50 to-black/60" />
         </div>
-        <div className="relative container mx-auto px-4 py-20 sm:py-32 md:py-40">
-          <div className="max-w-xl animate-slide-up">
+        <div className="relative container mx-auto px-4 py-20 sm:py-32 md:py-40 z-20">
+          <div className="max-w-xl animate-slide-up bg-black/30 p-6 rounded-2xl backdrop-blur-sm">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
               <Wifi size={14} /> Exclusivo para clientes Lognet
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground leading-tight mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
               Leitura, Áudio e HQs <span className="gradient-text">Ilimitados</span>
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg text-white/90 mb-8 leading-relaxed">
               Leia e ouça histórias onde, como e quando quiser! Milhares de ebooks, audiobooks e comics na palma da sua mão. Leitura e áudio onde e quando quiser.
             </p>
             <div className="flex">
