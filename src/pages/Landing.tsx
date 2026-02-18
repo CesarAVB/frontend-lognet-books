@@ -3,19 +3,36 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { BookOpen, Headphones, Smartphone, Wifi, Star, ChevronRight, Menu, X } from 'lucide-react';
 import { testimonials } from '@/data/mockData';
-import logoImg from '@/assets/logoh.png';
+import logoImg from '@/assets/logoht.png';
 import Footer from '@/components/Footer';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const Landing: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const heroImages = [
-    'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&h=800&fit=crop&crop=center',
-    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop&crop=center',
-    'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=1200&h=800&fit=crop&crop=center',
-    'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1200&h=800&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&h=800&fit=crop', // Biblioteca
+    'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1200&h=800&fit=crop', // Livros
+    'https://images.unsplash.com/photo-1612969308146-066d55c55f17?w=1200&h=800&fit=crop', // Comics
+    'https://images.unsplash.com/photo-1589998059171-988d887df646?w=1200&h=800&fit=crop', // Headphones
   ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  };
+
+  // Auto-play do carrossel
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 4000); // Muda a cada 4 segundos
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -24,12 +41,10 @@ const Landing: React.FC = () => {
         <div className="container mx-auto flex items-center justify-between h-16 px-4">
           <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <img src={logoImg} alt="Lognet SVA" className="h-12 w-auto" />
-            <span className="text-xl font-bold hidden sm:block">LogBooks</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link to="/" className="text-white/90 hover:text-white hover:scale-105 transition-all duration-200 font-medium">Início</Link>
             <Link to="/catalog" className="text-white/90 hover:text-white hover:scale-105 transition-all duration-200 font-medium">Catálogo</Link>
-            <Link to="/plans" className="text-white/90 hover:text-white hover:scale-105 transition-all duration-200 font-medium">Planos</Link>
             <Link to="/about" className="text-white/90 hover:text-white hover:scale-105 transition-all duration-200 font-medium">Sobre</Link>
           </nav>
           <div className="flex items-center gap-3">
@@ -37,11 +52,6 @@ const Landing: React.FC = () => {
               <Link to="/login">
                 <Button variant="ghost" size="sm" className="bg-white/10 hover:bg-white/20 border border-white/20 text-white hover:text-white transition-all duration-200">
                   Entrar
-                </Button>
-              </Link>
-              <Link to="/register">
-                <Button size="sm" className="bg-white text-amber-600 hover:bg-amber-50 transition-all duration-200 shadow-md">
-                  Cadastrar
                 </Button>
               </Link>
             </div>
@@ -81,18 +91,44 @@ const Landing: React.FC = () => {
       {/* Hero */}
       <section className="relative pt-20 overflow-hidden min-h-screen flex items-center">
         <div className="absolute inset-0">
-          <Carousel className="w-full h-full">
-            <CarouselContent>
-              {heroImages.map((image, index) => (
-                <CarouselItem key={index}>
-                  <img src={image} alt={`Hero ${index + 1}`} className="w-full h-screen object-cover object-center" />
-                </CarouselItem>
+          <div className="relative w-full h-full">
+            {heroImages.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Hero ${index + 1}`}
+                className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500 ${
+                  index === currentSlide ? 'opacity-100' : 'opacity-0'
+                }`}
+                onLoad={() => console.log(`Image ${index + 1} loaded`)}
+                onError={() => console.log(`Image ${index + 1} failed to load`)}
+              />
+            ))}
+            <button
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 text-white transition-colors z-10"
+            >
+              <ChevronRight size={20} className="rotate-180" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 text-white transition-colors z-10"
+            >
+              <ChevronRight size={20} />
+            </button>
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+              {heroImages.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    index === currentSlide ? 'bg-white shadow-lg' : 'bg-white/50'
+                  }`}
+                />
               ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-4" />
-            <CarouselNext className="right-4" />
-          </Carousel>
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/40" />
+            </div>
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-background/50 to-background/40" />
         </div>
         <div className="relative container mx-auto px-4 py-20 sm:py-32 md:py-40">
           <div className="max-w-xl animate-slide-up">
