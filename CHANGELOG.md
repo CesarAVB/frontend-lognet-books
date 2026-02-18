@@ -1,3 +1,9 @@
+## [1.7.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.6.0...v1.7.0) (2026-02-18)
+
+### Features
+
+* adiciona página "Sobre" com informações sobre a LogBooks ([f11d870](https://github.com/CesarAVB/frontend-lognet-books/commit/f11d87084e5b1d5941af540ca5138712b3798060))
+
 ## [1.6.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.5.0...v1.6.0) (2026-02-18)
 
 ### Features
