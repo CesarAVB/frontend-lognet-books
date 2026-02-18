@@ -37,7 +37,7 @@ const Landing: React.FC = () => {
               Leitura, Áudio e HQs <span className="gradient-text">Ilimitados</span>
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground mb-8 leading-relaxed">
-              Milhares de e-books, audiobooks e comics na palma da sua mão — leitura e áudio onde e quando quiser.
+              Leia e ouça histórias onde, como e quando quiser! Milhares de ebooks, audiobooks e comics na palma da sua mão. Leitura e áudio onde e quando quiser.
             </p>
             <div className="flex">
               <Link to="/catalog" className="mx-auto sm:mx-0"><Button variant="outline" size="xl">Explorar Catálogo <ChevronRight size={18} /></Button></Link>

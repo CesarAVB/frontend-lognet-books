@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
-import { Eye, EyeOff, Mail, BookOpen, Headphones, Smartphone } from 'lucide-react';
-import logoImg from '@/assets/logoh.png';
+import { Eye, EyeOff, Mail, BookOpen, Headphones, Smartphone, Star } from 'lucide-react';
+import logo02 from '@/assets/logo02.jpg';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -30,26 +30,27 @@ const Login: React.FC = () => {
           {/* decorative blobs */}
           <div aria-hidden className="absolute -top-20 -left-12 w-72 h-72 rounded-full bg-gradient-to-tr from-amber-200 via-amber-100 to-transparent blur-3xl opacity-30 pointer-events-none" />
           <div aria-hidden className="absolute -bottom-12 -right-12 w-48 h-48 rounded-full bg-gradient-to-br from-amber-100/30 to-transparent blur-2xl opacity-20 pointer-events-none" />
-        <div className="max-w-lg">
-          <Link to="/" className="flex items-center gap-3 mb-6">
-            <img src={logoImg} alt="Lognet" className="h-12 w-auto" />
-          </Link>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight tracking-tight mb-4">Descubra mais com a Lognet</h2>
-          <p className="text-base text-muted-foreground/90 leading-relaxed">Leitura, áudio e quadrinhos num só lugar. Sincronize sua biblioteca, baixe para leitura offline e aproveite recomendações personalizadas.</p>
+        <div className="max-w-lg mx-auto text-center">
+          <div className="flex items-center gap-4 justify-center mb-4">
+            <img src={logo02} alt="Lognet" className="h-24 md:h-28 w-auto" />
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight tracking-tight">Descubra mais com a Lognet</h2>
+          </div>
 
-          <div className="mt-8 grid grid-cols-1 gap-4">
-            <article className="group bg-card/80 border border-border rounded-2xl p-4 flex items-start gap-4 transform-gpu transition-transform hover:-translate-y-1 hover:shadow-lg">
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground ring-1 ring-primary/10">
+          <p className="text-base text-muted-foreground/90 leading-relaxed mt-2 mx-auto max-w-prose">Leitura, áudio e quadrinhos num só lugar. Sincronize sua biblioteca e aproveite recomendações personalizadas.</p>
+
+          <div className="mt-10 grid grid-cols-2 gap-4">
+            <article className="group bg-gradient-to-br from-amber-50/70 to-amber-100/60 border border-amber-200 rounded-2xl p-4 flex flex-col items-center gap-3 transform-gpu transition-all hover:scale-105 hover:shadow-2xl">
+              <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-amber-400 to-orange-300 flex items-center justify-center text-white shadow-md transform transition-transform group-hover:-translate-y-1">
                 <BookOpen size={20} />
               </div>
               <div>
                 <p className="text-base md:text-lg font-semibold text-foreground">Milhares de títulos</p>
-                        <p className="text-sm text-muted-foreground/90">E-books nacionais e internacionais.</p>
+                <p className="text-sm text-muted-foreground/90">E-books nacionais e internacionais.</p>
               </div>
             </article>
 
-            <article className="group bg-card/80 border border-border rounded-2xl p-4 flex items-start gap-4 transform-gpu transition-transform hover:-translate-y-1 hover:shadow-lg">
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground ring-1 ring-primary/10">
+            <article className="group bg-gradient-to-br from-amber-50/70 to-amber-100/60 border border-amber-200 rounded-2xl p-4 flex flex-col items-center gap-3 transform-gpu transition-all hover:scale-105 hover:shadow-2xl">
+              <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-amber-400 to-orange-300 flex items-center justify-center text-white shadow-md transform transition-transform group-hover:-translate-y-1">
                 <Headphones size={20} />
               </div>
               <div>
@@ -58,13 +59,23 @@ const Login: React.FC = () => {
               </div>
             </article>
 
-            <article className="group bg-card/80 border border-border rounded-2xl p-4 flex items-start gap-4 transform-gpu transition-transform hover:-translate-y-1 hover:shadow-lg">
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground ring-1 ring-primary/10">
+            <article className="group bg-gradient-to-br from-amber-50/70 to-amber-100/60 border border-amber-200 rounded-2xl p-4 flex flex-col items-center gap-3 transform-gpu transition-all hover:scale-105 hover:shadow-2xl">
+              <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-amber-400 to-orange-300 flex items-center justify-center text-white shadow-md transform transition-transform group-hover:-translate-y-1">
                 <Smartphone size={20} />
               </div>
               <div>
                 <p className="text-base md:text-lg font-semibold text-foreground">Modo offline</p>
                 <p className="text-sm text-muted-foreground/90">Baixe conteúdos para acessar sem internet.</p>
+              </div>
+            </article>
+
+            <article className="group bg-gradient-to-br from-amber-50/70 to-amber-100/60 border border-amber-200 rounded-2xl p-4 flex flex-col items-center gap-3 transform-gpu transition-all hover:scale-105 hover:shadow-2xl">
+              <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-amber-400 to-orange-300 flex items-center justify-center text-white shadow-md transform transition-transform group-hover:-translate-y-1">
+                <Star size={20} />
+              </div>
+              <div>
+                <p className="text-base md:text-lg font-semibold text-foreground">Recomendações</p>
+                <p className="text-sm text-muted-foreground/90">Sugestões personalizadas com base no seu gosto.</p>
               </div>
             </article>
           </div>
