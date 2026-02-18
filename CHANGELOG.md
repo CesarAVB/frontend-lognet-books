@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.5.0...v1.6.0) (2026-02-18)
+
+### Features
+
+* adiciona carrossel de imagens na página inicial e atualiza o rodapé ([aad4943](https://github.com/CesarAVB/frontend-lognet-books/commit/aad49433e913c341e846baa27faf8412711e3374))
+
 ## [1.5.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.4.2...v1.5.0) (2026-02-18)
 
 ### Features
