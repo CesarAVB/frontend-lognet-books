@@ -139,7 +139,13 @@ const Login: React.FC = () => {
                   <input type="checkbox" className="h-4 w-4 rounded border border-border bg-background text-primary focus:ring-2 focus:ring-primary" />
                   <span>Lembrar-me</span>
                 </label>
-                <button type="button" className="text-xs text-primary hover:underline">Esqueceu a senha?</button>
+                <button
+                  type="button"
+                  className="text-xs text-primary hover:underline"
+                  onClick={() => toast({ title: 'Esqueceu a senha?', description: 'Por favor, entre em contato com o atendimento do provedor: contato@lognetrj.com.br' })}
+                >
+                  Esqueceu a senha?
+                </button>
               </div>
 
               <Button type="submit" variant="hero" size="lg" className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-2xl transform-gpu hover:-translate-y-0.5 hover:shadow-glow" disabled={loading}>
