@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.4.2...v1.5.0) (2026-02-18)
+
+### Features
+
+* adiciona funcionalidade de recuperação de senha no botão "Esqueceu a senha?" ([13f6cad](https://github.com/CesarAVB/frontend-lognet-books/commit/13f6cadaab6382e7761cda5011ce02f89076aaa9))
+
 ## [1.4.2](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.4.1...v1.4.2) (2026-02-17)
 
 ### Bug Fixes
