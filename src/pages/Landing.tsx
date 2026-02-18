@@ -13,7 +13,6 @@ const Landing: React.FC = () => {
   const heroImages = [
     'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&h=800&fit=crop', // Biblioteca
     'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1200&h=800&fit=crop', // Livros
-    'https://images.unsplash.com/photo-1612969308146-066d55c55f17?w=1200&h=800&fit=crop', // Comics
     'https://images.unsplash.com/photo-1589998059171-988d887df646?w=1200&h=800&fit=crop', // Headphones
   ];
 
