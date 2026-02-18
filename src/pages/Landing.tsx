@@ -89,7 +89,7 @@ const Landing: React.FC = () => {
       </header>
 
       {/* Hero */}
-      <section className="relative pt-20 overflow-hidden min-h-screen flex items-center">
+      <section className="relative pt-20 overflow-hidden h-[65vh] sm:h-[70vh] md:h-[75vh] flex items-center">
         <div className="absolute inset-0">
           <div className="relative w-full h-full">
             {heroImages.map((image, index) => (
@@ -97,7 +97,7 @@ const Landing: React.FC = () => {
                 key={index}
                 src={image}
                 alt={`Hero ${index + 1}`}
-                className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500 ${
+                className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500 z-0 ${
                   index === currentSlide ? 'opacity-100' : 'opacity-0'
                 }`}
                 onLoad={() => console.log(`Image ${index + 1} loaded`)}
@@ -106,17 +106,17 @@ const Landing: React.FC = () => {
             ))}
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 text-white transition-colors z-10"
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 text-white transition-colors z-20"
             >
               <ChevronRight size={20} className="rotate-180" />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 text-white transition-colors z-10"
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 text-white transition-colors z-20"
             >
               <ChevronRight size={20} />
             </button>
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
               {heroImages.map((_, index) => (
                 <button
                   key={index}
@@ -128,10 +128,10 @@ const Landing: React.FC = () => {
               ))}
             </div>
           </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/50 to-black/60" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/50 to-black/60 z-10" />
         </div>
-        <div className="relative container mx-auto px-4 py-20 sm:py-32 md:py-40 z-20">
-          <div className="max-w-xl animate-slide-up bg-black/30 p-6 rounded-2xl backdrop-blur-sm">
+        <div className="relative container mx-auto px-4 py-20 sm:py-32 md:py-40 z-30">
+          <div className="max-w-xl animate-slide-up bg-black/30 p-6 rounded-2xl backdrop-blur-sm z-30">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
               <Wifi size={14} /> Exclusivo para clientes Lognet
             </div>
