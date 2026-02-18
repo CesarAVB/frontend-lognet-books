@@ -26,7 +26,7 @@ const Login: React.FC = () => {
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
       {/* Left - features (visible on md+) */}
-      <aside className="hidden md:flex relative flex-col justify-center p-12 bg-gradient-to-br from-amber-50 via-amber-100 to-amber-50 overflow-hidden">
+      <aside className="hidden md:flex relative flex-col justify-center p-12 bg-gradient-to-br from-amber-200 via-amber-300 to-orange-300 overflow-hidden">
           {/* decorative blobs */}
           <div aria-hidden className="absolute -top-20 -left-12 w-72 h-72 rounded-full bg-gradient-to-tr from-amber-200 via-amber-100 to-transparent blur-3xl opacity-30 pointer-events-none" />
           <div aria-hidden className="absolute -bottom-12 -right-12 w-48 h-48 rounded-full bg-gradient-to-br from-amber-100/30 to-transparent blur-2xl opacity-20 pointer-events-none" />
@@ -36,10 +36,8 @@ const Login: React.FC = () => {
             <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight tracking-tight">Descubra mais com a Lognet</h2>
           </div>
 
-          <p className="text-base text-muted-foreground/90 leading-relaxed mt-2 mx-auto max-w-prose">Leitura, áudio e quadrinhos num só lugar. Sincronize sua biblioteca e aproveite recomendações personalizadas.</p>
-
           <div className="mt-10 grid grid-cols-2 gap-4">
-            <article className="group bg-gradient-to-br from-amber-50/70 to-amber-100/60 border border-amber-200 rounded-2xl p-4 flex flex-col items-center gap-3 transform-gpu transition-all hover:scale-105 hover:shadow-2xl">
+            <article className="group bg-white/95 border border-border rounded-2xl p-4 flex flex-col items-center gap-3 shadow-sm transform-gpu transition-all hover:-translate-y-1 hover:shadow-xl">
               <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-amber-400 to-orange-300 flex items-center justify-center text-white shadow-md transform transition-transform group-hover:-translate-y-1">
                 <BookOpen size={20} />
               </div>
@@ -49,7 +47,7 @@ const Login: React.FC = () => {
               </div>
             </article>
 
-            <article className="group bg-gradient-to-br from-amber-50/70 to-amber-100/60 border border-amber-200 rounded-2xl p-4 flex flex-col items-center gap-3 transform-gpu transition-all hover:scale-105 hover:shadow-2xl">
+            <article className="group bg-white/95 border border-border rounded-2xl p-4 flex flex-col items-center gap-3 shadow-sm transform-gpu transition-all hover:-translate-y-1 hover:shadow-xl">
               <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-amber-400 to-orange-300 flex items-center justify-center text-white shadow-md transform transition-transform group-hover:-translate-y-1">
                 <Headphones size={20} />
               </div>
@@ -59,7 +57,7 @@ const Login: React.FC = () => {
               </div>
             </article>
 
-            <article className="group bg-gradient-to-br from-amber-50/70 to-amber-100/60 border border-amber-200 rounded-2xl p-4 flex flex-col items-center gap-3 transform-gpu transition-all hover:scale-105 hover:shadow-2xl">
+            <article className="group bg-white/95 border border-border rounded-2xl p-4 flex flex-col items-center gap-3 shadow-sm transform-gpu transition-all hover:-translate-y-1 hover:shadow-xl">
               <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-amber-400 to-orange-300 flex items-center justify-center text-white shadow-md transform transition-transform group-hover:-translate-y-1">
                 <Smartphone size={20} />
               </div>
@@ -69,7 +67,7 @@ const Login: React.FC = () => {
               </div>
             </article>
 
-            <article className="group bg-gradient-to-br from-amber-50/70 to-amber-100/60 border border-amber-200 rounded-2xl p-4 flex flex-col items-center gap-3 transform-gpu transition-all hover:scale-105 hover:shadow-2xl">
+            <article className="group bg-white/95 border border-border rounded-2xl p-4 flex flex-col items-center gap-3 shadow-sm transform-gpu transition-all hover:-translate-y-1 hover:shadow-xl">
               <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-amber-400 to-orange-300 flex items-center justify-center text-white shadow-md transform transition-transform group-hover:-translate-y-1">
                 <Star size={20} />
               </div>
