@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
             <Link to="/" className="flex items-center gap-3">
               <img src={logoImg} alt="Lognet" className="h-10 w-auto" />
             </Link>
-            <p className="text-sm max-w-md">Plataforma de leitura digital da Lognet — e-books, audiobooks e quadrinhos com acesso fácil e downloads offline.</p>
+            <p className="text-sm max-w-md">Plataforma de leitura digital da Lognet. Ebooks, audiobooks e quadrinhos com acesso fácil.</p>
           </div>
 
           <div>
