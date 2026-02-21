@@ -138,6 +138,6 @@ Versão atual: **1.7.0** — Veja o [CHANGELOG](./CHANGELOG.md) para o históric
 
 ## Contato
 
-- **Email:** contato@lognetbr.com.br  
+- **Email:** cesar.augusto.rj1@gmail.com  
 - **Site:** [lognetbr.com.br](https://lognetbr.com.br)  
 - **WhatsApp:** 0800 000 0192
