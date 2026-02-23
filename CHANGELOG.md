@@ -1,3 +1,9 @@
+## [1.9.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.8.0...v1.9.0) (2026-02-23)
+
+### Features
+
+* adiciona página de administração de livros e integra webhook de login ([c0b7a23](https://github.com/CesarAVB/frontend-lognet-books/commit/c0b7a2365693ef19e47b93cc0717ee818e2485f5))
+
 ## [1.8.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.7.0...v1.8.0) (2026-02-23)
 
 ### Features
