@@ -13,7 +13,6 @@ const navItems = [
   { to: '/', icon: Home, label: 'Home' },
   { to: '/catalog', icon: Library, label: 'Catálogo' },
   { to: '/favorites', icon: Heart, label: 'Favoritos' },
-  { to: '/downloads', icon: Download, label: 'Downloads' },
   { to: '/profile', icon: User, label: 'Perfil' },
 ];
 
@@ -60,12 +59,9 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 <Crown size={12} /> Premium
               </span>
             )}
-            <Link to="/plans">
-              <Button variant="ghost" size="sm">{user?.plan === 'none' || user?.plan === 'trial' ? 'Assinar' : 'Planos'}</Button>
-            </Link>
-            <button onClick={logout} className="text-muted-foreground hover:text-foreground transition-colors">
-              <LogOut size={20} />
-            </button>
+            <Button variant="ghost" size="sm" onClick={logout} className="ml-2">
+              <LogOut size={16} className="mr-2" /> Sair
+            </Button>
           </div>
         </div>
       </header>

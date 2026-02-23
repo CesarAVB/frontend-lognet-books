@@ -85,7 +85,7 @@ const Login: React.FC = () => {
         <div className="w-full max-w-md animate-scale-in">
           <header className="text-center mb-6">
             <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">Entrar na sua conta</h3>
-            <p className="text-sm text-muted-foreground mt-2">Use seu email e senha para acessar.</p>
+            <p className="text-sm text-muted-foreground mt-2">Use seu login e senha para acessar.</p>
           </header>
 
           {/* mobile features (visible only on small screens) */}
@@ -113,11 +113,11 @@ const Login: React.FC = () => {
           <section className="bg-card/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-lg ring-1 ring-border">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Login</label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
-                  <input type="email" value={email} onChange={e => setEmail(e.target.value)}
-                    placeholder="seu@email.com"
+                  <input type="text" value={email} onChange={e => setEmail(e.target.value)}
+                    placeholder="seu login"
                     className="w-full h-14 pl-10 pr-4 rounded-xl bg-muted border border-transparent text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:shadow-sm transition" />
                 </div>
               </div>
