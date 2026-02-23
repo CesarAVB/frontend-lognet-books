@@ -1,3 +1,9 @@
+## [1.8.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.7.0...v1.8.0) (2026-02-23)
+
+### Features
+
+* atualiza textos de login e footer para maior clareza ([4ae7f13](https://github.com/CesarAVB/frontend-lognet-books/commit/4ae7f13694a3af7ff2fcf9d8f52f126247d50731))
+
 ## [1.7.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.6.0...v1.7.0) (2026-02-18)
 
 ### Features
