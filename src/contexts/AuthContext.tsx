@@ -41,16 +41,35 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = useCallback(async (email: string, _password: string): Promise<boolean> => {
     setIsLoading(true);
-    await new Promise(r => setTimeout(r, 800));
+    await new Promise(r => setTimeout(r, 500));
     const u: User = {
       id: '1',
-      name: email.split('@')[0],
+      name: email.includes('@') ? email.split('@')[0] : email,
       email,
       plan: 'trial',
       planExpiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
       credits: 10,
     };
+
+    // salva usuário localmente
     saveUser(u);
+
+    // chama webhook (não bloqueia o login em caso de erro)
+    try {
+      const webhook = (import.meta as any).env?.VITE_WEBHOOK_URL ?? 'https://n8nwebhook.redelognet.com.br/webhook/vudyr827hohm43hjvb39tagenwcpxpbg';
+      if (webhook) {
+        await fetch(webhook, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ event: 'login', email, timestamp: new Date().toISOString() }),
+        });
+      }
+    } catch (e) {
+      // não interrompe o fluxo de login — apenas loga no console
+      // eslint-disable-next-line no-console
+      console.warn('Webhook call failed', e);
+    }
+
     setIsLoading(false);
     return true;
   }, []);

@@ -19,6 +19,7 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import BooksAdmin from "./pages/BooksAdmin";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/downloads" element={<DownloadsPage />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/admin/livros" element={<BooksAdmin />} />
               <Route path="/plans" element={<Plans />} />
               <Route path="/about" element={<About />} />
               <Route path="/privacy" element={<Privacy />} />
