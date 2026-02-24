@@ -130,27 +130,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         saveUser(u);
         console.log('👤 Usuário salvo:', u);
 
-        // Chama webhook (não bloqueia o login em caso de erro)
-        try {
-          const webhook =
-            import.meta.env.VITE_WEBHOOK_URL ||
-            'https://n8nwebhook.redelognet.com.br/webhook/vudyr827hohm43hjvb39tagenwcpxpbg';
-
-          if (webhook) {
-            fetch(webhook, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                event: 'login',
-                login,
-                userId: u.id,
-                timestamp: new Date().toISOString(),
-              }),
-            }).catch((e) => console.warn('Webhook call failed', e));
-          }
-        } catch (e) {
-          console.warn('Webhook setup failed', e);
-        }
+        // webhook disabled
 
         return true;
       } catch (err) {
@@ -248,28 +228,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           saveUser(u);
           console.log('👤 Usuário registrado:', u);
 
-          // Chama webhook para novo registro
-          try {
-            const webhook =
-              import.meta.env.VITE_WEBHOOK_URL ||
-              'https://n8nwebhook.redelognet.com.br/webhook/vudyr827hohm43hjvb39tagenwcpxpbg';
-
-            if (webhook) {
-              fetch(webhook, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  event: 'register',
-                  name,
-                  email,
-                  userId: u.id,
-                  timestamp: new Date().toISOString(),
-                }),
-              }).catch((e) => console.warn('Webhook call failed', e));
-            }
-          } catch (e) {
-            console.warn('Webhook setup failed', e);
-          }
+          // webhook disabled
 
           return true;
         } catch (apiErr) {
