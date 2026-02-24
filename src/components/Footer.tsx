@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logoImg from '@/assets/logoht.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   return (
     <>
-      {/* Detailed footer for small screens (hidden on large where sidebar is fixed) */}
-      <footer className="block lg:hidden mt-12 bg-amber-500 border-t border-amber-600 text-white">
+      {/* Detailed footer: on home show on all sizes; on other pages show only on small screens */}
+      <footer className={`${isHome ? 'block' : 'block lg:hidden'} mt-12 bg-amber-500 border-t border-amber-600 text-white`}>
         <div className="container mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="flex flex-col gap-4">
@@ -62,8 +64,9 @@ const Footer: React.FC = () => {
         </div>
       </footer>
 
-      {/* Simple footer for large screens where sidebar is fixed (avoid being covered) */}
-      <footer className="hidden lg:flex items-center justify-center bg-amber-500 border-t border-amber-600 text-white py-4 lg:ml-64 lg:w-[calc(100%_-_16rem)]">
+        {/* Simple footer for large screens where sidebar is fixed (avoid being covered).
+          Hidden on home because home uses the detailed footer across sizes. */}
+        <footer className={`${isHome ? 'hidden' : 'hidden lg:flex'} items-center justify-center bg-amber-500 border-t border-amber-600 text-white py-4 lg:ml-64 lg:w-[calc(100%_-_16rem)]`}>
         <div className="px-4 text-sm text-amber-50 text-center">© {year} <a href="https://lognetbr.com.br/" target="_blank" rel="noreferrer" className="text-amber-50/95 hover:text-white font-semibold">BRLognet</a>. Todos os direitos reservados.</div>
       </footer>
     </>
