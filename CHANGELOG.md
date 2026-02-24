@@ -1,3 +1,10 @@
+## [1.13.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.12.0...v1.13.0) (2026-02-24)
+
+### Features
+
+* adicionar funcionalidade de colapsar barra lateral e melhorar acessibilidade ([57568d1](https://github.com/CesarAVB/frontend-lognet-books/commit/57568d1e0c4551415c7bdd5827e171f12ccd77ab))
+* refatorar estrutura de dados de livros e atualizar componentes para usar nova API ([df8655d](https://github.com/CesarAVB/frontend-lognet-books/commit/df8655db57d8c0cafccc860408d4780224c3f1ed))
+
 ## [1.12.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.11.0...v1.12.0) (2026-02-24)
 
 ### Features
