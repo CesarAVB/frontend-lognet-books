@@ -1,3 +1,9 @@
+## [1.11.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.10.0...v1.11.0) (2026-02-24)
+
+### Features
+
+* adiciona axios como dependência e atualiza o footer para exibir conteúdo condicionalmente ([70e2766](https://github.com/CesarAVB/frontend-lognet-books/commit/70e2766111bdd4ae6a7188bf9b5979aa91326442))
+
 ## [1.10.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.9.0...v1.10.0) (2026-02-24)
 
 ### Features
