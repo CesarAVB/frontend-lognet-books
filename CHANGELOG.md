@@ -1,3 +1,9 @@
+## [1.10.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.9.0...v1.10.0) (2026-02-24)
+
+### Features
+
+* implementa login com autenticação via API e armazenamento de credenciais ([0324d84](https://github.com/CesarAVB/frontend-lognet-books/commit/0324d84c06f32b049bdf23bc001cb16c34f1ef2d))
+
 ## [1.9.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.8.0...v1.9.0) (2026-02-23)
 
 ### Features
