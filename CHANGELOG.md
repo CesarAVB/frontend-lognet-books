@@ -1,3 +1,9 @@
+## [1.17.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.16.0...v1.17.0) (2026-02-24)
+
+### Features
+
+* adicionar upload de arquivos e capas para livros na administração ([763f6ba](https://github.com/CesarAVB/frontend-lognet-books/commit/763f6bad29247aa628f982f5a103172bd8062cfa))
+
 ## [1.16.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.15.0...v1.16.0) (2026-02-24)
 
 ### Features
