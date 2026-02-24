@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { catalogItems } from '@/data/mockData';
-import { useApp } from '@/contexts/AppContext';
+import { useApp } from '@/contexts/app';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Play, Pause, SkipBack, SkipForward, Bookmark, Moon, Type, Minus, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AppLayout from '@/components/AppLayout';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/auth';
 import { plans } from '@/data/mockData';
 import { Star, Check, CreditCard, X } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';

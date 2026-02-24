@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { useApp } from '@/contexts/AppContext';
+import { useAuth } from '@/contexts/auth';
+import { useApp } from '@/contexts/app';
 import { Button } from '@/components/ui/button';
 import {
   Home, BookOpen, Heart, Download, User, LogOut, Menu, X, Search, Crown, Library

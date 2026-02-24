@@ -1,129 +1,342 @@
-import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import api from '@/lib/api';
+import React, { useState, useCallback, useEffect, ReactNode } from 'react';
+import { AuthContext, AuthContextType, User } from './auth';
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  avatar?: string;
-  plan: 'none' | 'basico' | 'premium' | 'trial';
-  planExpiresAt?: string;
-  credits: number;
+interface AuthProviderProps {
+  children: ReactNode;
 }
 
-interface AuthContextType {
-  user: User | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
-  register: (name: string, email: string, password: string) => Promise<boolean>;
-  logout: () => void;
-  updatePlan: (plan: User['plan']) => void;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export const useAuth = () => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
-  return ctx;
-};
-
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
+  // Restaurar usuário do localStorage ao montar
   useEffect(() => {
     const saved = localStorage.getItem('lognet-user');
-    if (saved) {
-      setUser(JSON.parse(saved));
+    const token = localStorage.getItem('lognet-token');
+
+    if (saved && token) {
+      try {
+        const parsedUser = JSON.parse(saved);
+        setUser(parsedUser);
+      } catch (e) {
+        console.error('Erro ao restaurar usuário:', e);
+        localStorage.removeItem('lognet-user');
+        localStorage.removeItem('lognet-token');
+      }
     }
     setIsLoading(false);
   }, []);
 
-  const saveUser = (u: User) => {
+  const apiBase = (() => {
+    const env = (import.meta as any).env || {};
+    if (env.VITE_API_URL) return env.VITE_API_URL.replace(/\/$/, '');
+    try {
+      const loc = window.location;
+      return `${loc.protocol}//${loc.hostname}:8080`;
+    } catch (e) {
+      return 'http://localhost:8080';
+    }
+  })();
+
+  const saveUser = useCallback((u: User) => {
     setUser(u);
     localStorage.setItem('lognet-user', JSON.stringify(u));
-  };
+  }, []);
 
-  const login = useCallback(async (email: string, password: string): Promise<boolean> => {
-    setIsLoading(true);
+  const clearError = useCallback(() => {
+    setError(null);
+  }, []);
 
-    try {
-      const res = await api.post('/api/v1/auth/login', { email, password });
-      const data = res.data || {};
+  const login = useCallback(
+    async (login: string, senha: string): Promise<boolean> => {
+      setIsLoading(true);
+      setError(null);
 
-      const token = data.token ?? data.accessToken ?? data.access_token;
-      if (token) localStorage.setItem('lognet-token', token);
-
-      const serverUser = data.user ?? data;
-      const u: User = {
-        id: serverUser.id ? String(serverUser.id) : '1',
-        name: serverUser.name || serverUser.username || (email.includes('@') ? email.split('@')[0] : email),
-        email: serverUser.email || email,
-        plan: (serverUser.plan as User['plan']) || 'trial',
-        planExpiresAt: serverUser.planExpiresAt || new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-        credits: typeof serverUser.credits === 'number' ? serverUser.credits : 10,
-      };
-
-      saveUser(u);
-
-      // chama webhook (não bloqueia o login em caso de erro)
       try {
-        const webhook = (import.meta.env as { VITE_WEBHOOK_URL?: string }).VITE_WEBHOOK_URL ?? 'https://n8nwebhook.redelognet.com.br/webhook/vudyr827hohm43hjvb39tagenwcpxpbg';
-        if (webhook) {
-          fetch(webhook, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ event: 'login', email, timestamp: new Date().toISOString() }),
-          }).catch((e) => console.warn('Webhook call failed', e));
+        // Validações básicas
+        if (!login || !senha) {
+          throw new Error('Login e senha são obrigatórios');
         }
-      } catch (e) {
-        console.warn('Webhook setup failed', e);
+
+        if (login.length < 3) {
+          throw new Error('Login deve ter no mínimo 3 caracteres');
+        }
+
+        if (senha.length < 6) {
+          throw new Error('Senha deve ter no mínimo 6 caracteres');
+        }
+
+        console.log('🔐 Tentando login com:', { login, senhaLength: senha.length });
+
+        // Chamada à API - usando login e senha (como esperado pela API)
+        console.debug('[Auth] calling', `${apiBase}/api/v1/auth/login`);
+        const response = await fetch(`${apiBase}/api/v1/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ login, senha }),
+        });
+
+        console.log('📡 Resposta da API:', {
+          status: response.status,
+          statusText: response.statusText,
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          console.error('❌ Erro na resposta:', errorData);
+
+          // Se houver detalhes de validação, mostre-os
+          if (errorData.errors && Array.isArray(errorData.errors)) {
+            const errorMessages = errorData.errors
+              .map((e: { message?: string }) => e.message || String(e))
+              .join(', ');
+            throw new Error(errorMessages);
+          }
+
+          throw new Error(
+            errorData.message ||
+              errorData.msg ||
+              `Erro ao fazer login (${response.status})`
+          );
+        }
+
+        const data = await response.json();
+        console.log('✅ Login bem-sucedido:', data);
+
+        const token = data.token || data.accessToken || data.access_token;
+        if (!token) {
+          throw new Error('Token não recebido do servidor');
+        }
+
+        localStorage.setItem('lognet-token', token);
+
+        // A resposta pode conter user ou ser o próprio usuário
+        const serverUser = data.user || data.usuario || data;
+        const u: User = {
+          id: serverUser.id ? String(serverUser.id) : '1',
+          name: serverUser.name || serverUser.nome || login,
+          email: serverUser.email || serverUser.login || login,
+          avatar: serverUser.avatar,
+          plan: (serverUser.plan as User['plan']) || 'trial',
+          planExpiresAt:
+            serverUser.planExpiresAt ||
+            new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          credits: typeof serverUser.credits === 'number' ? serverUser.credits : 10,
+        };
+
+        saveUser(u);
+        console.log('👤 Usuário salvo:', u);
+
+        // Chama webhook (não bloqueia o login em caso de erro)
+        try {
+          const webhook =
+            import.meta.env.VITE_WEBHOOK_URL ||
+            'https://n8nwebhook.redelognet.com.br/webhook/vudyr827hohm43hjvb39tagenwcpxpbg';
+
+          if (webhook) {
+            fetch(webhook, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                event: 'login',
+                login,
+                userId: u.id,
+                timestamp: new Date().toISOString(),
+              }),
+            }).catch((e) => console.warn('Webhook call failed', e));
+          }
+        } catch (e) {
+          console.warn('Webhook setup failed', e);
+        }
+
+        return true;
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Falha ao fazer login';
+        setError(errorMessage);
+        console.error('❌ Login failed:', errorMessage, err);
+        return false;
+      } finally {
+        setIsLoading(false);
       }
+    },
+    [saveUser]
+  );
 
-      setIsLoading(false);
-      return true;
-    } catch (err) {
-      console.warn('Login failed', err);
-      setIsLoading(false);
-      return false;
-    }
-  }, []);
+  const register = useCallback(
+    async (name: string, email: string, password: string): Promise<boolean> => {
+      setIsLoading(true);
+      setError(null);
 
-  const register = useCallback(async (name: string, email: string, _password: string): Promise<boolean> => {
-    setIsLoading(true);
-    await new Promise(r => setTimeout(r, 800));
-    const u: User = {
-      id: '1',
-      name,
-      email,
-      plan: 'trial',
-      planExpiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-      credits: 10,
-    };
-    saveUser(u);
-    setIsLoading(false);
-    return true;
-  }, []);
+      try {
+        // Validações básicas
+        if (!name || !email || !password) {
+          throw new Error('Nome, email e senha são obrigatórios');
+        }
+
+        if (name.length < 3) {
+          throw new Error('Nome deve ter no mínimo 3 caracteres');
+        }
+
+        if (!email.includes('@')) {
+          throw new Error('Email inválido');
+        }
+
+        if (password.length < 6) {
+          throw new Error('Senha deve ter no mínimo 6 caracteres');
+        }
+
+        console.log('📝 Tentando registro com:', { name, email, passwordLength: password.length });
+
+        // Tenta registrar via API
+        try {
+          const response = await fetch(`${apiBase}/api/v1/auth/register`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, password }),
+          });
+
+          console.log('📡 Resposta do registro:', {
+            status: response.status,
+            statusText: response.statusText,
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error('❌ Erro no registro:', errorData);
+
+            // Se houver detalhes de validação, mostre-os
+            if (errorData.errors && Array.isArray(errorData.errors)) {
+              const errorMessages = errorData.errors
+                .map((e: { message?: string }) => e.message || String(e))
+                .join(', ');
+              throw new Error(errorMessages);
+            }
+
+            throw new Error(
+              errorData.message ||
+                errorData.msg ||
+                `Erro ao registrar (${response.status})`
+            );
+          }
+
+          const data = await response.json();
+          console.log('✅ Registro bem-sucedido:', data);
+
+          const token = data.token || data.accessToken || data.access_token;
+          if (token) {
+            localStorage.setItem('lognet-token', token);
+          }
+
+          const serverUser = data.user || data.usuario || data;
+          const u: User = {
+            id: serverUser.id ? String(serverUser.id) : '1',
+            name: serverUser.name || serverUser.nome || name,
+            email: serverUser.email || email,
+            avatar: serverUser.avatar,
+            plan: (serverUser.plan as User['plan']) || 'trial',
+            planExpiresAt:
+              serverUser.planExpiresAt ||
+              new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+            credits: typeof serverUser.credits === 'number' ? serverUser.credits : 10,
+          };
+
+          saveUser(u);
+          console.log('👤 Usuário registrado:', u);
+
+          // Chama webhook para novo registro
+          try {
+            const webhook =
+              import.meta.env.VITE_WEBHOOK_URL ||
+              'https://n8nwebhook.redelognet.com.br/webhook/vudyr827hohm43hjvb39tagenwcpxpbg';
+
+            if (webhook) {
+              fetch(webhook, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  event: 'register',
+                  name,
+                  email,
+                  userId: u.id,
+                  timestamp: new Date().toISOString(),
+                }),
+              }).catch((e) => console.warn('Webhook call failed', e));
+            }
+          } catch (e) {
+            console.warn('Webhook setup failed', e);
+          }
+
+          return true;
+        } catch (apiErr) {
+          // Se API falhar, cria usuário localmente como fallback
+          console.warn('API registration failed, using local fallback', apiErr);
+          const u: User = {
+            id: Math.random().toString(36).substring(2, 9),
+            name,
+            email,
+            plan: 'trial',
+            planExpiresAt: new Date(
+              Date.now() + 7 * 24 * 60 * 60 * 1000
+            ).toISOString(),
+            credits: 10,
+          };
+          saveUser(u);
+          return true;
+        }
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Falha ao registrar';
+        setError(errorMessage);
+        console.error('❌ Register failed:', errorMessage, err);
+        return false;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [saveUser]
+  );
 
   const logout = useCallback(() => {
     setUser(null);
+    setError(null);
     localStorage.removeItem('lognet-user');
+    localStorage.removeItem('lognet-token');
+    console.log('🚪 Logout realizado');
   }, []);
 
-  const updatePlan = useCallback((plan: User['plan']) => {
-    if (user) {
-      const updated = { ...user, plan, credits: plan === 'premium' ? 999 : 10 };
-      saveUser(updated);
-    }
-  }, [user]);
-
-  return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, login, register, logout, updatePlan }}>
-      {children}
-    </AuthContext.Provider>
+  const updatePlan = useCallback(
+    (plan: User['plan']) => {
+      if (user) {
+        const updated: User = {
+          ...user,
+          plan,
+          credits: plan === 'premium' ? 999 : 10,
+          planExpiresAt: new Date(
+            Date.now() + 30 * 24 * 60 * 60 * 1000
+          ).toISOString(),
+        };
+        saveUser(updated);
+        console.log('📊 Plano atualizado para:', plan);
+      }
+    },
+    [user, saveUser]
   );
-};
 
-export { AuthContext };
+  const value: AuthContextType = {
+    user,
+    isAuthenticated: !!user,
+    isLoading,
+    error,
+    login,
+    register,
+    logout,
+    updatePlan,
+    clearError,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};

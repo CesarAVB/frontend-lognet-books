@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Heart, Download, BookOpen, Headphones, MessageSquare } from 'lucide-react';
 import { CatalogItem, formatIcons } from '@/data/mockData';
-import { useApp } from '@/contexts/AppContext';
+import { useApp } from '@/contexts/app';
 
 interface BookCardProps {
   item: CatalogItem;

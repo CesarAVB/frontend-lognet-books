@@ -1,23 +1,6 @@
-import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { CatalogItem } from '@/data/mockData';
-
-interface AppContextType {
-  favorites: string[];
-  downloads: string[];
-  wishlist: string[];
-  readingProgress: Record<string, number>;
-  toggleFavorite: (id: string) => void;
-  toggleDownload: (id: string) => void;
-  toggleWishlist: (id: string) => void;
-  setProgress: (id: string, progress: number) => void;
-  isFavorite: (id: string) => boolean;
-  isDownloaded: (id: string) => boolean;
-  isWishlisted: (id: string) => boolean;
-  searchQuery: string;
-  setSearchQuery: (q: string) => void;
-}
-
-const AppContext = createContext<AppContextType | undefined>(undefined);
+import { AppContext } from './app';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [favorites, setFavorites] = useState<string[]>(() => JSON.parse(localStorage.getItem('lognet-favs') || '[]'));
@@ -57,8 +40,3 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   );
 };
 
-export const useApp = () => {
-  const ctx = useContext(AppContext);
-  if (!ctx) throw new Error('useApp must be inside AppProvider');
-  return ctx;
-};

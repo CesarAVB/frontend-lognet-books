@@ -1,7 +1,7 @@
 import React from 'react';
 import AppLayout from '@/components/AppLayout';
-import { useAuth } from '@/contexts/AuthContext';
-import { useApp } from '@/contexts/AppContext';
+import { useAuth } from '@/contexts/auth';
+import { useApp } from '@/contexts/app';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Crown, BookOpen, Heart, Download, Settings, LogOut } from 'lucide-react';

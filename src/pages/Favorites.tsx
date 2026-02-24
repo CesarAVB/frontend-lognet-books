@@ -1,7 +1,7 @@
 import React from 'react';
 import AppLayout from '@/components/AppLayout';
 import BookCard from '@/components/BookCard';
-import { useApp } from '@/contexts/AppContext';
+import { useApp } from '@/contexts/app';
 import { catalogItems } from '@/data/mockData';
 import { Heart } from 'lucide-react';
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { useApp } from '@/contexts/AppContext';
+import { useAuth } from '@/contexts/auth';
+import { useApp } from '@/contexts/app';
 import { catalogItems } from '@/data/mockData';
 import CategorySlider from '@/components/CategorySlider';
 import AppLayout from '@/components/AppLayout';

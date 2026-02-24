@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import AppLayout from '@/components/AppLayout';
 import CategorySlider from '@/components/CategorySlider';
 import { Button } from '@/components/ui/button';
-import { useApp } from '@/contexts/AppContext';
+import { useApp } from '@/contexts/app';
 import { catalogItems, formatLabels, formatIcons } from '@/data/mockData';
 import { Heart, Download, Play, BookOpen, Share2, Star, ArrowLeft, Clock, Globe } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
