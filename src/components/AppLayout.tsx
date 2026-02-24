@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/auth';
 import { useApp } from '@/contexts/app';
 import { Button } from '@/components/ui/button';
 import {
-  Home, BookOpen, Heart, Download, User, LogOut, Menu, X, Search, Crown, Library
+  Home, BookOpen, Heart, Download, User, LogOut, Menu, X, Search, Crown, Library, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import logoImg from '@/assets/logoh.png';
 import Footer from './Footer';
@@ -20,6 +20,13 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, logout } = useAuth();
   const { searchQuery, setSearchQuery } = useApp();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('sidebar-collapsed') === '1';
+    } catch {
+      return false;
+    }
+  });
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -53,6 +60,8 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             </div>
           </form>
 
+          
+
           <div className="ml-auto flex items-center gap-2">
             {user?.plan === 'premium' && (
               <span className="hidden sm:flex items-center gap-1 text-xs font-semibold text-warning bg-warning/10 px-2 py-1 rounded-full">
@@ -80,8 +89,8 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed top-16 left-0 bottom-0 z-40 w-64 border-r border-border bg-sidebar transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <nav className="flex flex-col gap-1 p-4">
+      <aside className={`fixed top-16 left-0 bottom-0 z-40 border-r border-border bg-sidebar transition-all duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} ${collapsed ? 'w-20' : 'w-64'}`}>
+        <nav className={`flex flex-col gap-1 p-2 ${collapsed ? 'items-center' : 'p-4'}`}>
           {navItems.map(({ to, icon: Icon, label }) => {
             const active = location.pathname === to;
             return (
@@ -89,36 +98,54 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 key={to}
                 to={to}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                title={label}
+                aria-label={label}
+                className={`flex items-center ${collapsed ? 'justify-center px-2 py-3' : 'gap-3 px-4 py-3'} rounded-xl text-sm font-medium transition-all duration-200 ${
                   active
                     ? 'bg-primary text-primary-foreground shadow-md'
                     : 'text-sidebar-foreground hover:bg-sidebar-accent'
                 }`}
               >
                 <Icon size={20} />
-                {label}
+                {!collapsed && <span>{label}</span>}
               </Link>
             );
           })}
         </nav>
 
+        {/* Collapse toggle on sidebar edge */}
+        <button
+          type="button"
+          onClick={() => {
+            const next = !collapsed;
+            setCollapsed(next);
+            try { localStorage.setItem('sidebar-collapsed', next ? '1' : '0'); } catch {}
+          }}
+          aria-label={collapsed ? 'Expandir barra lateral' : 'Colapsar barra lateral'}
+          className="hidden lg:flex absolute top-1/2 -right-4 transform -translate-y-1/2 w-8 h-8 rounded-full bg-amber-500 text-white items-center justify-center shadow-md hover:bg-amber-600"
+        >
+          {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+        </button>
+
         {user && (
-          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-sidebar-border">
+          <div className={`absolute bottom-0 left-0 right-0 border-t border-sidebar-border ${collapsed ? 'p-3' : 'p-4'}`}>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-sm font-bold text-primary-foreground">
                 {user.name.charAt(0).toUpperCase()}
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate text-sidebar-foreground">{user.name}</p>
-                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
-              </div>
+              {!collapsed && (
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate text-sidebar-foreground">{user.name}</p>
+                  <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                </div>
+              )}
             </div>
           </div>
         )}
       </aside>
 
       {/* Main */}
-      <main className="pt-16 lg:pl-64">
+      <main className={`pt-16 ${collapsed ? 'lg:pl-20' : 'lg:pl-64'}`}>
         <div className="p-4 md:p-6 lg:p-8">
           {children}
         </div>
