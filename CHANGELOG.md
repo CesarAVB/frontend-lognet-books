@@ -1,3 +1,9 @@
+## [1.14.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.13.0...v1.14.0) (2026-02-24)
+
+### Features
+
+* atualizar footer para exibir conteúdo detalhado apenas na página inicial para usuários não autenticados ([49ffb57](https://github.com/CesarAVB/frontend-lognet-books/commit/49ffb571926f697314e5e9ef47ec980129b4d192))
+
 ## [1.13.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.12.0...v1.13.0) (2026-02-24)
 
 ### Features
