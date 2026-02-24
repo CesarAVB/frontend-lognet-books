@@ -1,3 +1,9 @@
+## [1.12.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.11.0...v1.12.0) (2026-02-24)
+
+### Features
+
+* refatorar contextos de autenticação e aplicativo ([ca0032c](https://github.com/CesarAVB/frontend-lognet-books/commit/ca0032ce7ac3f9e1dfd2851f6a7d16d71fce27f7))
+
 ## [1.11.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.10.0...v1.11.0) (2026-02-24)
 
 ### Features
