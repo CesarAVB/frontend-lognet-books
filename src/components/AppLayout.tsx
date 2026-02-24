@@ -102,7 +102,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 onClick={() => setSidebarOpen(false)}
                 title={label}
                 aria-label={label}
-                className={`flex items-center ${collapsed ? 'justify-center px-2 py-3' : 'gap-3 px-4 py-3'} rounded-xl text-sm font-medium transition-all duration-200 ${
+                className={`group relative flex items-center ${collapsed ? 'justify-center px-2 py-3' : 'gap-3 px-4 py-3'} rounded-xl text-sm font-medium transition-all duration-200 ${
                   active
                     ? 'bg-primary text-primary-foreground shadow-md'
                     : 'text-sidebar-foreground hover:bg-sidebar-accent'
@@ -110,6 +110,13 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               >
                 <Icon size={20} />
                 {!collapsed && <span>{label}</span>}
+
+                {/* Visual tooltip when collapsed */}
+                {collapsed && (
+                  <span className="pointer-events-none absolute left-full top-1/2 z-50 -translate-y-1/2 ml-3 hidden whitespace-nowrap rounded bg-foreground text-white text-xs font-medium px-2 py-1 opacity-0 transition-all duration-150 group-hover:block group-hover:opacity-95">
+                    {label}
+                  </span>
+                )}
               </Link>
             );
           })}
@@ -124,7 +131,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             try { localStorage.setItem('sidebar-collapsed', next ? '1' : '0'); } catch {}
           }}
           aria-label={collapsed ? 'Expandir barra lateral' : 'Colapsar barra lateral'}
-          className="hidden lg:flex absolute top-1/2 -right-4 transform -translate-y-1/2 w-8 h-8 rounded-full bg-amber-500 text-white items-center justify-center shadow-md hover:bg-amber-600"
+          className="hidden lg:flex absolute top-1/2 -right-5 transform -translate-y-1/2 w-8 h-8 rounded-full bg-amber-500 text-white items-center justify-center shadow-md hover:bg-amber-600"
         >
           {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
         </button>
