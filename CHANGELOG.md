@@ -1,3 +1,9 @@
+## [1.18.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.17.0...v1.18.0) (2026-02-24)
+
+### Features
+
+* remover webhook e adicionar suporte a token de autenticação nas requisições ([2c85f53](https://github.com/CesarAVB/frontend-lognet-books/commit/2c85f532b052aa34d8c84d83b7d4478d3a73467f))
+
 ## [1.17.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.16.0...v1.17.0) (2026-02-24)
 
 ### Features
