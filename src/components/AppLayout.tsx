@@ -59,7 +59,15 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 <Crown size={12} /> Premium
               </span>
             )}
-            <Button variant="ghost" size="sm" onClick={logout} className="ml-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                logout();
+                navigate('/login');
+              }}
+              className="ml-2"
+            >
               <LogOut size={16} className="mr-2" /> Sair
             </Button>
           </div>

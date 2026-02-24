@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { useContext } from 'react';
+import { AuthContext } from '@/contexts/AuthContext';
+
+const useAuth = () => useContext(AuthContext);
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { Eye, EyeOff, Mail, BookOpen, Headphones, Smartphone, Star } from 'lucide-react';
@@ -11,8 +14,23 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [remember, setRemember] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('lognet-credentials');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed?.email) setEmail(parsed.email);
+        if (parsed?.password) setPassword(parsed.password);
+        setRemember(true);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +38,19 @@ const Login: React.FC = () => {
     setLoading(true);
     const ok = await login(email, password);
     setLoading(false);
-    if (ok) { toast({ title: 'Bem-vindo de volta!' }); navigate('/'); }
+    if (ok) {
+      try {
+        if (remember) {
+          localStorage.setItem('lognet-credentials', JSON.stringify({ email, password }));
+        } else {
+          localStorage.removeItem('lognet-credentials');
+        }
+      } catch {
+        // ignore storage errors
+      }
+      toast({ title: 'Bem-vindo de volta!' });
+      navigate('/');
+    }
   };
 
   return (

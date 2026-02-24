@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import api from '@/lib/api';
 
 interface User {
   id: string;
@@ -39,39 +40,49 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('lognet-user', JSON.stringify(u));
   };
 
-  const login = useCallback(async (email: string, _password: string): Promise<boolean> => {
+  const login = useCallback(async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
-    await new Promise(r => setTimeout(r, 500));
-    const u: User = {
-      id: '1',
-      name: email.includes('@') ? email.split('@')[0] : email,
-      email,
-      plan: 'trial',
-      planExpiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-      credits: 10,
-    };
 
-    // salva usuário localmente
-    saveUser(u);
-
-    // chama webhook (não bloqueia o login em caso de erro)
     try {
-      const webhook = (import.meta as any).env?.VITE_WEBHOOK_URL ?? 'https://n8nwebhook.redelognet.com.br/webhook/vudyr827hohm43hjvb39tagenwcpxpbg';
-      if (webhook) {
-        await fetch(webhook, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ event: 'login', email, timestamp: new Date().toISOString() }),
-        });
-      }
-    } catch (e) {
-      // não interrompe o fluxo de login — apenas loga no console
-      // eslint-disable-next-line no-console
-      console.warn('Webhook call failed', e);
-    }
+      const res = await api.post('/api/v1/auth/login', { email, password });
+      const data = res.data || {};
 
-    setIsLoading(false);
-    return true;
+      const token = data.token ?? data.accessToken ?? data.access_token;
+      if (token) localStorage.setItem('lognet-token', token);
+
+      const serverUser = data.user ?? data;
+      const u: User = {
+        id: serverUser.id ? String(serverUser.id) : '1',
+        name: serverUser.name || serverUser.username || (email.includes('@') ? email.split('@')[0] : email),
+        email: serverUser.email || email,
+        plan: (serverUser.plan as User['plan']) || 'trial',
+        planExpiresAt: serverUser.planExpiresAt || new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+        credits: typeof serverUser.credits === 'number' ? serverUser.credits : 10,
+      };
+
+      saveUser(u);
+
+      // chama webhook (não bloqueia o login em caso de erro)
+      try {
+        const webhook = (import.meta.env as { VITE_WEBHOOK_URL?: string }).VITE_WEBHOOK_URL ?? 'https://n8nwebhook.redelognet.com.br/webhook/vudyr827hohm43hjvb39tagenwcpxpbg';
+        if (webhook) {
+          fetch(webhook, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ event: 'login', email, timestamp: new Date().toISOString() }),
+          }).catch((e) => console.warn('Webhook call failed', e));
+        }
+      } catch (e) {
+        console.warn('Webhook setup failed', e);
+      }
+
+      setIsLoading(false);
+      return true;
+    } catch (err) {
+      console.warn('Login failed', err);
+      setIsLoading(false);
+      return false;
+    }
   }, []);
 
   const register = useCallback(async (name: string, email: string, _password: string): Promise<boolean> => {
@@ -109,8 +120,4 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-export const useAuth = () => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be inside AuthProvider');
-  return ctx;
-};
+export { AuthContext };
