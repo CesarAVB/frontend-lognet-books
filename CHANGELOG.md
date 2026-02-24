@@ -1,3 +1,9 @@
+## [1.16.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.15.0...v1.16.0) (2026-02-24)
+
+### Features
+
+* adicionar tooltip visual para itens da barra lateral quando colapsada ([d1ed7b5](https://github.com/CesarAVB/frontend-lognet-books/commit/d1ed7b51100731c2060699196a41a95ea0b737be))
+
 ## [1.15.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.14.0...v1.15.0) (2026-02-24)
 
 ### Features
