@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { LayoutContext } from '@/contexts/layout'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/auth';
 import { useApp } from '@/contexts/app';
@@ -36,7 +37,8 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <LayoutContext.Provider value={{ collapsed, setCollapsed }}>
+      <div className="min-h-screen flex flex-col bg-background">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-amber-600 bg-amber-500/95 backdrop-blur supports-[backdrop-filter]:bg-amber-500/90 text-white">
         <div className="flex h-full items-center gap-4 px-4">
@@ -145,13 +147,14 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </aside>
 
       {/* Main */}
-      <main className={`pt-16 ${collapsed ? 'lg:pl-20' : 'lg:pl-64'}`}>
+      <main className={`flex-1 overflow-auto pt-16 ${collapsed ? 'lg:pl-20' : 'lg:pl-64'}`}>
         <div className="p-4 md:p-6 lg:p-8">
           {children}
         </div>
       </main>
       <Footer />
     </div>
+    </LayoutContext.Provider>
   );
 };
 
