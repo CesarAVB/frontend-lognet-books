@@ -2,7 +2,9 @@ import React, { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import AppLayout from '@/components/AppLayout';
 import BookCard from '@/components/BookCard';
-import { catalogItems, genres, formats, formatLabels, type Genre, type ContentFormat } from '@/data/mockData';
+import { listBooks, genres, formats, formatLabels, type Genre, type ContentFormat } from '@/lib/books';
+import { Book } from '@/lib/books';
+import { useEffect } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 
 const Catalog: React.FC = () => {
@@ -13,14 +15,26 @@ const Catalog: React.FC = () => {
   const [selectedFormat, setSelectedFormat] = useState<ContentFormat | 'all'>('all');
   const [showFilters, setShowFilters] = useState(false);
 
-  const filtered = useMemo(() => {
-    return catalogItems.filter(item => {
-      const matchQ = !query || item.title.toLowerCase().includes(query.toLowerCase()) || item.author.toLowerCase().includes(query.toLowerCase());
-      const matchG = selectedGenre === 'all' || item.genre === selectedGenre;
-      const matchF = selectedFormat === 'all' || item.format === selectedFormat;
-      return matchQ && matchG && matchF;
-    });
+  const [items, setItems] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    setLoading(true);
+    listBooks({ q: query || undefined, genre: selectedGenre === 'all' ? undefined : selectedGenre, format: selectedFormat === 'all' ? undefined : selectedFormat, limit: 100 })
+      .then((res) => {
+        if (mounted) setItems(res);
+      })
+      .catch(() => {
+        if (mounted) setItems([]);
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
+    return () => { mounted = false; };
   }, [query, selectedGenre, selectedFormat]);
+
+  const filtered = items;
 
   const clearFilters = () => { setQuery(''); setSelectedGenre('all'); setSelectedFormat('all'); };
 
@@ -87,14 +101,17 @@ const Catalog: React.FC = () => {
           </div>
         )}
 
-        <p className="text-sm text-muted-foreground">{filtered.length} título{filtered.length !== 1 ? 's' : ''} encontrado{filtered.length !== 1 ? 's' : ''}</p>
+        <p className="text-sm text-muted-foreground">{loading ? 'Carregando...' : `${filtered.length} título${filtered.length !== 1 ? 's' : ''} encontrado${filtered.length !== 1 ? 's' : ''}`}</p>
       </div>
 
       {/* Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-        {filtered.map(item => (
+        {!loading && filtered.map(item => (
           <BookCard key={item.id} item={item} size="lg" />
         ))}
+        {loading && (
+          <div className="col-span-full text-center py-10">Carregando...</div>
+        )}
       </div>
 
       {filtered.length === 0 && (

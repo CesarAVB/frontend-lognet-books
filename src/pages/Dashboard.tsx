@@ -1,7 +1,8 @@
 import React from 'react';
 import { useAuth } from '@/contexts/auth';
 import { useApp } from '@/contexts/app';
-import { catalogItems } from '@/data/mockData';
+import { listBooks } from '@/lib/books';
+import { useEffect, useState } from 'react';
 import CategorySlider from '@/components/CategorySlider';
 import AppLayout from '@/components/AppLayout';
 import { BookOpen, Headphones, MessageSquare, TrendingUp } from 'lucide-react';
@@ -10,12 +11,21 @@ const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const { readingProgress } = useApp();
 
-  const continueReading = catalogItems.filter(i => i.progress && i.progress > 0).slice(0, 10);
-  const newReleases = catalogItems.slice(10, 22);
-  const bestSellers = catalogItems.filter(i => i.rating >= 4.5).slice(0, 12);
-  const audiobooks = catalogItems.filter(i => i.format === 'audiobook').slice(0, 12);
-  const comics = catalogItems.filter(i => i.format === 'comic').slice(0, 12);
-  const recommended = catalogItems.filter(i => i.genre === 'Ficção').slice(0, 12);
+  const [items, setItems] = useState<any[]>([]);
+  useEffect(() => {
+    let mounted = true;
+    listBooks({ limit: 100 })
+      .then(res => { if (mounted) setItems(res); })
+      .catch(() => { if (mounted) setItems([]); });
+    return () => { mounted = false; };
+  }, []);
+
+  const continueReading = items.filter(i => i.progress && i.progress > 0).slice(0, 10);
+  const newReleases = items.slice(10, 22);
+  const bestSellers = items.filter(i => i.rating >= 4.5).slice(0, 12);
+  const audiobooks = items.filter(i => i.format === 'audiobook').slice(0, 12);
+  const comics = items.filter(i => i.format === 'comic').slice(0, 12);
+  const recommended = items.filter(i => i.genre === 'Ficção').slice(0, 12);
 
   const stats = [
     { icon: BookOpen, label: 'E-books Lidos', value: '12', color: 'text-primary' },

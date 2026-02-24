@@ -4,7 +4,8 @@ import AppLayout from '@/components/AppLayout';
 import CategorySlider from '@/components/CategorySlider';
 import { Button } from '@/components/ui/button';
 import { useApp } from '@/contexts/app';
-import { catalogItems, formatLabels, formatIcons } from '@/data/mockData';
+import { getBook, listBooks, formatLabels, formatIcons, type Book } from '@/lib/books';
+import { useEffect, useState } from 'react';
 import { Heart, Download, Play, BookOpen, Share2, Star, ArrowLeft, Clock, Globe } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 
@@ -13,10 +14,29 @@ const BookDetail: React.FC = () => {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite, isDownloaded, toggleDownload, readingProgress } = useApp();
 
-  const item = catalogItems.find(i => i.id === id);
+  const [item, setItem] = useState<Book | null>(null);
+  const [related, setRelated] = useState<Book[]>([]);
+  useEffect(() => {
+    if (!id) return;
+    let mounted = true;
+    getBook(id)
+      .then(b => { if (mounted) setItem(b); })
+      .catch(() => { if (mounted) setItem(null); });
+    return () => { mounted = false; };
+  }, [id]);
+
+  useEffect(() => {
+    let mounted = true;
+    if (item) {
+      listBooks({ genre: item.genre, limit: 10 })
+        .then(res => { if (mounted) setRelated(res.filter(r => r.id !== item.id)); })
+        .catch(() => { if (mounted) setRelated([]); });
+    }
+    return () => { mounted = false; };
+  }, [item]);
+
   if (!item) return <AppLayout><div className="text-center py-20"><p className="text-muted-foreground">Item não encontrado.</p><Link to="/catalog" className="text-primary hover:underline">Voltar ao catálogo</Link></div></AppLayout>;
 
-  const related = catalogItems.filter(i => i.genre === item.genre && i.id !== item.id).slice(0, 10);
   const progress = readingProgress[item.id] || item.progress || 0;
   const fav = isFavorite(item.id);
   const downloaded = isDownloaded(item.id);

@@ -2,12 +2,21 @@ import React from 'react';
 import AppLayout from '@/components/AppLayout';
 import BookCard from '@/components/BookCard';
 import { useApp } from '@/contexts/app';
-import { catalogItems } from '@/data/mockData';
+import { listBooks } from '@/lib/books';
+import { useEffect, useState } from 'react';
 import { Heart } from 'lucide-react';
 
 const Favorites: React.FC = () => {
   const { favorites } = useApp();
-  const items = catalogItems.filter(i => favorites.includes(i.id));
+  const [items, setItems] = useState<any[]>([]);
+  useEffect(() => {
+    let mounted = true;
+    if (!favorites || favorites.length === 0) { setItems([]); return; }
+    listBooks({ ids: favorites })
+      .then(res => { if (mounted) setItems(res); })
+      .catch(() => { if (mounted) setItems([]); });
+    return () => { mounted = false; };
+  }, [favorites]);
 
   return (
     <AppLayout>

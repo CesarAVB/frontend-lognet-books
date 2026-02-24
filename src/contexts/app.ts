@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { CatalogItem } from '@/data/mockData';
+import { Book } from '@/lib/books';
 
 export interface AppContextType {
   favorites: string[];

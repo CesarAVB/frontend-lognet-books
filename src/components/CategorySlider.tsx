@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import BookCard from './BookCard';
-import { CatalogItem } from '@/data/mockData';
+import { Book } from '@/lib/books';
 
 interface CategorySliderProps {
   title: string;
-  items: CatalogItem[];
+  items: Book[];
   accent?: string;
 }
 

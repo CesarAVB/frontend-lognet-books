@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { CatalogItem } from '@/data/mockData';
+import { Book } from '@/lib/books';
 import { AppContext } from './app';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
