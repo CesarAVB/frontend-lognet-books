@@ -1,3 +1,9 @@
+## [1.19.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.18.0...v1.19.0) (2026-02-24)
+
+### Features
+
+* melhorar a lógica de carregamento de livros e adicionar tratamento de erros na Dashboard ([a04b69a](https://github.com/CesarAVB/frontend-lognet-books/commit/a04b69ad5bb309def0c06c9b4f8cbe11328c72ed))
+
 ## [1.18.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.17.0...v1.18.0) (2026-02-24)
 
 ### Features
