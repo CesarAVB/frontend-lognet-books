@@ -1,3 +1,9 @@
+## [1.15.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.14.0...v1.15.0) (2026-02-24)
+
+### Features
+
+* adicionar contexto de layout para gerenciar estado de colapso da barra lateral ([b0fb80e](https://github.com/CesarAVB/frontend-lognet-books/commit/b0fb80e095ebcdbca91d3f444e392bd67b82f407))
+
 ## [1.14.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.13.0...v1.14.0) (2026-02-24)
 
 ### Features
