@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseURL = (import.meta as any).env?.VITE_API_BASE_URL ?? 'https://logbooks-api.redelognet.com.br';
+const meta = (import.meta as unknown as { env?: Record<string, string> });
+const baseURL = meta.env?.VITE_API_BASE_URL ?? 'https://logbooks-api.redelognet.com.br';
 
 const api = axios.create({
   baseURL,
@@ -10,15 +11,15 @@ const api = axios.create({
 });
 
 // Attach token from localStorage to every request if present
-api.interceptors.request.use((config) => {
+api.interceptors.request.use((config: import('axios').AxiosRequestConfig) => {
   try {
     const token = localStorage.getItem('lognet-token');
     if (token) {
       config.headers = config.headers || {};
-      (config.headers as Record<string, any>)['Authorization'] = `Bearer ${token}`;
+      (config.headers as Record<string, string>)['Authorization'] = `Bearer ${token}`;
     }
   } catch (e) {
-    // ignore
+    void e;
   }
   return config;
 });

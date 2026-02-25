@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const apiBase = (() => {
-    const env = (import.meta as any).env || {};
+    const env = (import.meta as unknown as { env?: Record<string, string> }).env || {};
     if (env.VITE_API_URL) return env.VITE_API_URL.replace(/\/$/, '');
     try {
       const loc = window.location;

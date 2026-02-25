@@ -60,7 +60,7 @@ export const formatIcons: Record<ContentFormat, string> = {
 };
 
 const getApiBase = () => {
-  const env = (import.meta as any).env || {};
+  const env = (import.meta as unknown as { env?: Record<string, string> }).env || {};
   if (env.VITE_API_URL) return env.VITE_API_URL.replace(/\/$/, '');
   try {
     const loc = window.location;
@@ -86,13 +86,13 @@ function buildHeaders(contentType?: string) {
   return headers;
 }
 
-function qs(params: Record<string, any>) {
+function qs(params: Record<string, unknown>) {
   const parts: string[] = [];
   Object.keys(params).forEach((k) => {
-    const v = params[k];
+    const v = params[k as keyof typeof params];
     if (v === undefined || v === null || v === '') return;
     if (Array.isArray(v)) {
-      v.forEach((vv) => parts.push(`${encodeURIComponent(k)}=${encodeURIComponent(vv)}`));
+      (v as unknown[]).forEach((vv) => parts.push(`${encodeURIComponent(k)}=${encodeURIComponent(String(vv))}`));
     } else {
       parts.push(`${encodeURIComponent(k)}=${encodeURIComponent(String(v))}`);
     }
@@ -101,7 +101,7 @@ function qs(params: Record<string, any>) {
 }
 
 export async function listBooks(options?: { q?: string; genre?: string; format?: string; page?: number; limit?: number; ids?: string[] }) {
-  const params: Record<string, any> = {};
+  const params: Record<string, unknown> = {};
   if (options?.q) params.q = options.q;
   if (options?.genre) params.genre = options.genre;
   if (options?.format) params.format = options.format;
@@ -115,12 +115,13 @@ export async function listBooks(options?: { q?: string; genre?: string; format?:
   const data = await res.json().catch(() => null);
   if (!data) return [];
 
-  const normalize = (raw: any): Book => {
-    const maybeTitulo = raw.title || raw.titulo || raw.nome || '';
-    const maybeAuthor = raw.author || raw.autor || '';
-    let format = raw.format || raw.formato;
+  const normalize = (raw: unknown): Book => {
+    const r = raw as Record<string, unknown>;
+    const maybeTitulo = (r.title as string) || (r.titulo as string) || (r.nome as string) || '';
+    const maybeAuthor = (r.author as string) || (r.autor as string) || '';
+    let format = (r.format as string) || (r.formato as string) || undefined;
     if (!format) {
-      const t = (raw.tipo || '').toString().toUpperCase();
+      const t = ((r.tipo as string) || '').toString().toUpperCase();
       if (t === 'AUDIOBOOK') format = 'audiobook';
       else if (t === 'PDF' || t === 'EPUB') format = 'ebook';
       else if (t === 'HQ' || t === 'MANGA' || t === 'MANGÁ' || t === 'COMIC') format = 'comic';
@@ -128,18 +129,18 @@ export async function listBooks(options?: { q?: string; genre?: string; format?:
     }
 
     return {
-      id: raw.id ? String(raw.id) : String(Math.random()),
+      id: r.id ? String(r.id) : String(Math.random()),
       title: maybeTitulo,
       author: maybeAuthor,
       format: format as ContentFormat,
-      genre: (raw.genero || raw.genre) as Genre || 'Ficção',
-      language: raw.language || raw.idioma || undefined,
-      duration: raw.duration || raw.duracao || undefined,
-      rating: typeof raw.rating === 'number' ? raw.rating : undefined,
-      coverColor: raw.coverColor || raw.capaColor || 'from-amber-100 to-orange-100',
-      synopsis: raw.synopsis || raw.descricao || undefined,
-      progress: typeof raw.progress === 'number' ? raw.progress : undefined,
-      isFavorite: !!raw.isFavorite,
+      genre: ((r.genero as Genre) || (r.genre as Genre)) || 'Ficção',
+      language: (r.language as string) || (r.idioma as string) || undefined,
+      duration: (r.duration as string) || (r.duracao as string) || undefined,
+      rating: typeof r.rating === 'number' ? (r.rating as number) : undefined,
+      coverColor: (r.coverColor as string) || (r.capaColor as string) || 'from-amber-100 to-orange-100',
+      synopsis: (r.synopsis as string) || (r.descricao as string) || undefined,
+      progress: typeof r.progress === 'number' ? (r.progress as number) : undefined,
+      isFavorite: !!r.isFavorite,
     } as Book;
   };
 
@@ -155,12 +156,13 @@ export async function getBook(id: string) {
   if (!res.ok) throw new Error(`Failed to fetch book ${id}: ${res.status}`);
   const raw = await res.json();
 
-  const normalize = (raw: any): Book => {
-    const maybeTitulo = raw.title || raw.titulo || raw.nome || '';
-    const maybeAuthor = raw.author || raw.autor || '';
-    let format = raw.format || raw.formato;
+  const normalize = (raw: unknown): Book => {
+    const r = raw as Record<string, unknown>;
+    const maybeTitulo = (r.title as string) || (r.titulo as string) || (r.nome as string) || '';
+    const maybeAuthor = (r.author as string) || (r.autor as string) || '';
+    let format = (r.format as string) || (r.formato as string) || undefined;
     if (!format) {
-      const t = (raw.tipo || '').toString().toUpperCase();
+      const t = ((r.tipo as string) || '').toString().toUpperCase();
       if (t === 'AUDIOBOOK') format = 'audiobook';
       else if (t === 'PDF' || t === 'EPUB') format = 'ebook';
       else if (t === 'HQ' || t === 'MANGA' || t === 'MANGÁ' || t === 'COMIC') format = 'comic';
@@ -168,18 +170,18 @@ export async function getBook(id: string) {
     }
 
     return {
-      id: raw.id ? String(raw.id) : String(Math.random()),
+      id: r.id ? String(r.id) : String(Math.random()),
       title: maybeTitulo,
       author: maybeAuthor,
       format: format as ContentFormat,
-      genre: (raw.genero || raw.genre) as Genre || 'Ficção',
-      language: raw.language || raw.idioma || undefined,
-      duration: raw.duration || raw.duracao || undefined,
-      rating: typeof raw.rating === 'number' ? raw.rating : undefined,
-      coverColor: raw.coverColor || raw.capaColor || 'from-amber-100 to-orange-100',
-      synopsis: raw.synopsis || raw.descricao || undefined,
-      progress: typeof raw.progress === 'number' ? raw.progress : undefined,
-      isFavorite: !!raw.isFavorite,
+      genre: ((r.genero as Genre) || (r.genre as Genre)) || 'Ficção',
+      language: (r.language as string) || (r.idioma as string) || undefined,
+      duration: (r.duration as string) || (r.duracao as string) || undefined,
+      rating: typeof r.rating === 'number' ? (r.rating as number) : undefined,
+      coverColor: (r.coverColor as string) || (r.capaColor as string) || 'from-amber-100 to-orange-100',
+      synopsis: (r.synopsis as string) || (r.descricao as string) || undefined,
+      progress: typeof r.progress === 'number' ? (r.progress as number) : undefined,
+      isFavorite: !!r.isFavorite,
     } as Book;
   };
 

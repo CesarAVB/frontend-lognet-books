@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getBook } from '@/lib/books';
+import { getBook, Book } from '@/lib/books';
 import { useApp } from '@/contexts/app';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Play, Pause, SkipBack, SkipForward, Bookmark, Moon, Type, Minus, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -9,7 +9,7 @@ const Player: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { setProgress, readingProgress } = useApp();
-  const [item, setItem] = useState<any | null>(null);
+  const [item, setItem] = useState<Book | null>(null);
   useEffect(() => {
     if (!id) return;
     let mounted = true;

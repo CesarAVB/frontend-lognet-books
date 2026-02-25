@@ -2,13 +2,13 @@ import React from 'react';
 import AppLayout from '@/components/AppLayout';
 import BookCard from '@/components/BookCard';
 import { useApp } from '@/contexts/app';
-import { listBooks } from '@/lib/books';
+import { listBooks, Book } from '@/lib/books';
 import { useEffect, useState } from 'react';
 import { Heart } from 'lucide-react';
 
 const Favorites: React.FC = () => {
   const { favorites } = useApp();
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<Book[]>([]);
   useEffect(() => {
     let mounted = true;
     if (!favorites || favorites.length === 0) { setItems([]); return; }

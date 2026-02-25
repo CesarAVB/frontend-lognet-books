@@ -55,11 +55,12 @@ const Dashboard: React.FC = () => {
         
         // Transform ApiBook to Book interface and ensure `format` is present
         const books: Book[] = apiBooks.map((book) => {
-          const maybeTitulo = (book as ApiBook & { titulo?: string }).titulo || '';
-          const maybeTipo = (book as unknown as { tipo?: string }).tipo || '';
+          const b = book as unknown as Record<string, unknown>;
+          const maybeTitulo = (book as ApiBook).title || (b.titulo as string) || (b.nome as string) || '';
+          const maybeTipo = (b.tipo as string) || '';
 
           // derive format: prefer book.format or book.formato, otherwise map from tipo
-          let format = (book as ApiBook & { format?: string; formato?: string }).format || (book as ApiBook & { format?: string; formato?: string }).formato;
+          let format = (book as ApiBook).format || (b.formato as string) || undefined;
           if (!format) {
             const t = maybeTipo.toUpperCase();
             if (t === 'AUDIOBOOK') format = 'audiobook';
@@ -72,12 +73,12 @@ const Dashboard: React.FC = () => {
             ...book,
             nome: maybeTitulo,
             tipo: (maybeTipo as 'PDF' | 'EPUB' | 'AUDIOBOOK') || 'PDF',
-            status: ((book as ApiBook & { status?: string }).status as string) || 'disponível',
+            status: (b.status as string) || 'disponível',
             // normalized fields expected by UI
-            title: (book as any).title || maybeTitulo || (book as any).nome || '',
-            author: (book as any).author || (book as any).autor || '',
+            title: (book as ApiBook).title || maybeTitulo || (b.nome as string) || '',
+            author: (book as ApiBook).author || (b.autor as string) || '',
             format: format as string,
-            coverColor: (book as any).coverColor || 'from-amber-100 to-orange-100',
+            coverColor: (book as ApiBook).coverColor || (b.capaColor as string) || 'from-amber-100 to-orange-100',
           } as Book;
         });
         

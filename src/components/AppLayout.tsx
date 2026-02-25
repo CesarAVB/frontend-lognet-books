@@ -123,12 +123,12 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </nav>
 
         {/* Collapse toggle on sidebar edge */}
-        <button
+          <button
           type="button"
           onClick={() => {
             const next = !collapsed;
             setCollapsed(next);
-            try { localStorage.setItem('sidebar-collapsed', next ? '1' : '0'); } catch {}
+            try { localStorage.setItem('sidebar-collapsed', next ? '1' : '0'); } catch (e) { void e; }
           }}
           aria-label={collapsed ? 'Expandir barra lateral' : 'Colapsar barra lateral'}
           className="hidden lg:flex absolute top-1/2 -right-5 transform -translate-y-1/2 w-8 h-8 rounded-full bg-amber-500 text-white items-center justify-center shadow-md hover:bg-amber-600"
