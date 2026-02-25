@@ -70,7 +70,7 @@ const getApiBase = () => {
   }
 };
 
-const apiBase = getApiBase();
+export const apiBase = getApiBase();
 
 function buildHeaders(contentType?: string) {
   const headers: Record<string, string> = {
@@ -112,14 +112,78 @@ export async function listBooks(options?: { q?: string; genre?: string; format?:
   const url = `${apiBase}/api/v1/livros${qs(params)}`;
   const res = await fetch(url, { method: 'GET', headers: buildHeaders() });
   if (!res.ok) throw new Error(`Failed to fetch books: ${res.status}`);
-  return (await res.json()) as Book[];
+  const data = await res.json().catch(() => null);
+  if (!data) return [];
+
+  const normalize = (raw: any): Book => {
+    const maybeTitulo = raw.title || raw.titulo || raw.nome || '';
+    const maybeAuthor = raw.author || raw.autor || '';
+    let format = raw.format || raw.formato;
+    if (!format) {
+      const t = (raw.tipo || '').toString().toUpperCase();
+      if (t === 'AUDIOBOOK') format = 'audiobook';
+      else if (t === 'PDF' || t === 'EPUB') format = 'ebook';
+      else if (t === 'HQ' || t === 'MANGA' || t === 'MANGÁ' || t === 'COMIC') format = 'comic';
+      else format = 'ebook';
+    }
+
+    return {
+      id: raw.id ? String(raw.id) : String(Math.random()),
+      title: maybeTitulo,
+      author: maybeAuthor,
+      format: format as ContentFormat,
+      genre: (raw.genero || raw.genre) as Genre || 'Ficção',
+      language: raw.language || raw.idioma || undefined,
+      duration: raw.duration || raw.duracao || undefined,
+      rating: typeof raw.rating === 'number' ? raw.rating : undefined,
+      coverColor: raw.coverColor || raw.capaColor || 'from-amber-100 to-orange-100',
+      synopsis: raw.synopsis || raw.descricao || undefined,
+      progress: typeof raw.progress === 'number' ? raw.progress : undefined,
+      isFavorite: !!raw.isFavorite,
+    } as Book;
+  };
+
+  // If API returned a page
+  if (Array.isArray(data)) return data.map(normalize);
+  if (data && typeof data === 'object' && Array.isArray(data.content)) return data.content.map(normalize);
+  return [];
 }
 
 export async function getBook(id: string) {
   const url = `${apiBase}/api/v1/livros/${encodeURIComponent(id)}`;
   const res = await fetch(url, { method: 'GET', headers: buildHeaders() });
   if (!res.ok) throw new Error(`Failed to fetch book ${id}: ${res.status}`);
-  return (await res.json()) as Book;
+  const raw = await res.json();
+
+  const normalize = (raw: any): Book => {
+    const maybeTitulo = raw.title || raw.titulo || raw.nome || '';
+    const maybeAuthor = raw.author || raw.autor || '';
+    let format = raw.format || raw.formato;
+    if (!format) {
+      const t = (raw.tipo || '').toString().toUpperCase();
+      if (t === 'AUDIOBOOK') format = 'audiobook';
+      else if (t === 'PDF' || t === 'EPUB') format = 'ebook';
+      else if (t === 'HQ' || t === 'MANGA' || t === 'MANGÁ' || t === 'COMIC') format = 'comic';
+      else format = 'ebook';
+    }
+
+    return {
+      id: raw.id ? String(raw.id) : String(Math.random()),
+      title: maybeTitulo,
+      author: maybeAuthor,
+      format: format as ContentFormat,
+      genre: (raw.genero || raw.genre) as Genre || 'Ficção',
+      language: raw.language || raw.idioma || undefined,
+      duration: raw.duration || raw.duracao || undefined,
+      rating: typeof raw.rating === 'number' ? raw.rating : undefined,
+      coverColor: raw.coverColor || raw.capaColor || 'from-amber-100 to-orange-100',
+      synopsis: raw.synopsis || raw.descricao || undefined,
+      progress: typeof raw.progress === 'number' ? raw.progress : undefined,
+      isFavorite: !!raw.isFavorite,
+    } as Book;
+  };
+
+  return normalize(raw);
 }
 
 export async function createBook(payload: Partial<Book>) {

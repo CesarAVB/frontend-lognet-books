@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Pencil, Trash2, Plus, Upload, X } from 'lucide-react';
+import { listBooks, createBook, updateBook, deleteBook, apiBase, Book } from '@/lib/books';
 
 type Tipo = 'PDF' | 'EPUB' | 'AUDIOBOOK';
 type Status = 'ATIVO' | 'INATIVO' | 'PROCESSANDO' | 'ERRO';
@@ -67,25 +68,30 @@ const BooksAdmin: React.FC = () => {
   const [arquivoSelecionado, setArquivoSelecionado] = useState<File | null>(null);
   const [capaSelecionada, setCapaSelecionada] = useState<File | null>(null);
 
-  // Carregar livros do localStorage
+  // Carregar livros da API
   useEffect(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
+    let mounted = true;
+    const fetchBooks = async () => {
       try {
-        const parsed = JSON.parse(raw) as Livro[];
-        setItems(parsed);
-      } catch {
-        setItems([]);
+        const res = await listBooks({ limit: 500, page: 0 });
+        let apiBooks: Livro[] = [];
+        if (Array.isArray(res)) {
+          apiBooks = res as unknown as Livro[];
+        } else if (res && typeof res === 'object' && 'content' in res) {
+          const resWithContent = res as Record<string, unknown>;
+          if (Array.isArray(resWithContent.content)) {
+            apiBooks = resWithContent.content as unknown as Livro[];
+          }
+        }
+        if (mounted) setItems(apiBooks);
+      } catch (e) {
+        console.error('Erro ao carregar livros (admin):', e);
+        if (mounted) setItems([]);
       }
-    }
+    };
+    fetchBooks();
+    return () => { mounted = false };
   }, []);
-
-  // Salvar livros no localStorage
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }, [items]);
-
-  const nextId = useMemo(() => items.reduce((max, i) => Math.max(max, i.id), 0) + 1, [items]);
 
   const startCreate = () => {
     setEditing(emptyLivro());
@@ -122,7 +128,7 @@ const BooksAdmin: React.FC = () => {
       formData.append('arquivo', file);
 
       const token = localStorage.getItem('lognet-token');
-      const response = await fetch(`/api/v1/livros/${editing.id}/arquivo`, {
+      const response = await fetch(`${apiBase}/api/v1/livros/${editing.id}/arquivo`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -176,7 +182,7 @@ const BooksAdmin: React.FC = () => {
       formData.append('capa', file);
 
       const token = localStorage.getItem('lognet-token');
-      const response = await fetch(`/api/v1/livros/${editing.id}/capa`, {
+      const response = await fetch(`${apiBase}/api/v1/livros/${editing.id}/capa`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -213,55 +219,42 @@ const BooksAdmin: React.FC = () => {
       return;
     }
 
-    if ((editing as Livro).id) {
-      const id = (editing as Livro).id;
-      setItems((prev) =>
-        prev.map((p) =>
-          p.id === id
-            ? {
-                ...(p as Livro),
-                ...(editing as Livro),
-                updated_at: new Date().toISOString(),
-              }
-            : p
-        )
-      );
-      toast({ title: 'Livro atualizado' });
-    } else {
-      const now = new Date().toISOString();
-      const newItem: Livro = {
-        id: nextId,
-        nome: editing.nome || '',
-        autor: editing.autor || '',
-        descricao: editing.descricao || '',
-        genero: editing.genero || '',
-        ano: editing.ano || null,
-        isbn: editing.isbn || null,
-        tipo: (editing.tipo || 'PDF') as Tipo,
-        arquivo_bucket: editing.arquivo_bucket || null,
-        arquivo_key: editing.arquivo_key || null,
-        tamanho_bytes: editing.tamanho_bytes || null,
-        capa_bucket: editing.capa_bucket || null,
-        capa_key: editing.capa_key || null,
-        duracao_segundos: editing.duracao_segundos || null,
-        status: (editing.status || 'ATIVO') as Status,
-        created_at: now,
-        updated_at: now,
-      };
-      setItems((prev) => [newItem, ...prev]);
-      toast({ title: 'Livro criado' });
-    }
-
-    setEditing(null);
-    setArquivoSelecionado(null);
-    setCapaSelecionada(null);
-    setDialogOpen(false);
+    (async () => {
+      try {
+        if (editing && editing.id) {
+          const id = editing.id;
+          const { id: _, ...payload } = editing;
+          const updated = await updateBook(String(id), payload as Partial<Book>);
+          setItems((prev) => prev.map((p) => (p.id === id ? (updated as unknown as Livro) : p)));
+          toast({ title: 'Livro atualizado' });
+        } else {
+          const { id, ...payload } = editing;
+          const created = await createBook(payload as Partial<Book>);
+          setItems((prev) => [created as unknown as Livro, ...prev]);
+          toast({ title: 'Livro criado' });
+        }
+      } catch (err) {
+        toast({ title: 'Erro ao salvar', description: err instanceof Error ? err.message : 'Tente novamente', variant: 'destructive' });
+      } finally {
+        setEditing(null);
+        setArquivoSelecionado(null);
+        setCapaSelecionada(null);
+        setDialogOpen(false);
+      }
+    })();
   };
 
   const remove = (id: number) => {
-    if (!confirm('Remover este livro?')) return;
-    setItems((prev) => prev.filter((p) => p.id !== id));
-    toast({ title: 'Livro removido' });
+    (async () => {
+      if (!confirm('Remover este livro?')) return;
+      try {
+        await deleteBook(String(id));
+        setItems((prev) => prev.filter((p) => String(p.id) !== String(id)));
+        toast({ title: 'Livro removido' });
+      } catch (err) {
+        toast({ title: 'Erro ao remover', description: err instanceof Error ? err.message : 'Tente novamente', variant: 'destructive' });
+      }
+    })();
   };
 
   const filtered = items.filter(

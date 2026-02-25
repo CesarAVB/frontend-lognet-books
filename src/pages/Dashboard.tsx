@@ -53,13 +53,33 @@ const Dashboard: React.FC = () => {
           }
         }
         
-        // Transform ApiBook to Book interface
-        const books: Book[] = apiBooks.map(book => ({
-          ...book,
-          nome: (book as ApiBook & { titulo?: string }).titulo || '',
-          tipo: ((book as unknown as { tipo?: string }).tipo as 'PDF' | 'EPUB' | 'AUDIOBOOK') || 'PDF',
-          status: ((book as unknown as { status?: string }).status) || 'disponível',
-        }));
+        // Transform ApiBook to Book interface and ensure `format` is present
+        const books: Book[] = apiBooks.map((book) => {
+          const maybeTitulo = (book as ApiBook & { titulo?: string }).titulo || '';
+          const maybeTipo = (book as unknown as { tipo?: string }).tipo || '';
+
+          // derive format: prefer book.format or book.formato, otherwise map from tipo
+          let format = (book as ApiBook & { format?: string; formato?: string }).format || (book as ApiBook & { format?: string; formato?: string }).formato;
+          if (!format) {
+            const t = maybeTipo.toUpperCase();
+            if (t === 'AUDIOBOOK') format = 'audiobook';
+            else if (t === 'PDF' || t === 'EPUB') format = 'ebook';
+            else if (t === 'HQ' || t === 'MANGA' || t === 'MANGÁ' || t === 'COMIC') format = 'comic';
+            else format = 'ebook';
+          }
+
+          return {
+            ...book,
+            nome: maybeTitulo,
+            tipo: (maybeTipo as 'PDF' | 'EPUB' | 'AUDIOBOOK') || 'PDF',
+            status: ((book as ApiBook & { status?: string }).status as string) || 'disponível',
+            // normalized fields expected by UI
+            title: (book as any).title || maybeTitulo || (book as any).nome || '',
+            author: (book as any).author || (book as any).autor || '',
+            format: format as string,
+            coverColor: (book as any).coverColor || 'from-amber-100 to-orange-100',
+          } as Book;
+        });
         
         console.log('📚 Livros carregados:', books.length);
         
@@ -101,11 +121,11 @@ const Dashboard: React.FC = () => {
     .slice(0, 12);
     
   const audiobooks = safeItems
-    .filter(i => i.tipo === 'AUDIOBOOK')
+    .filter((i) => (i.format || '').toString() === 'audiobook')
     .slice(0, 12);
-    
+
   const comics = safeItems
-    .filter(i => i.formato === 'comic')
+    .filter((i) => (i.format || '').toString() === 'comic')
     .slice(0, 12);
     
   const recommended = safeItems
