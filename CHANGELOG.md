@@ -1,3 +1,9 @@
+## [1.20.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.19.0...v1.20.0) (2026-02-25)
+
+### Features
+
+* adicionar carregamento de capas de livros do MinIO e normalizar dados da API ([2d61c1a](https://github.com/CesarAVB/frontend-lognet-books/commit/2d61c1a98a9a4e31e62300e70290de850e4605fb))
+
 ## [1.19.0](https://github.com/CesarAVB/frontend-lognet-books/compare/v1.18.0...v1.19.0) (2026-02-24)
 
 ### Features
