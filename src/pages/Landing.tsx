@@ -31,7 +31,7 @@ const Landing: React.FC = () => {
     }, 4000); // Muda a cada 4 segundos
 
     return () => clearInterval(interval);
-  }, []);
+  }, [heroImages.length]);
 
   return (
     <div className="min-h-screen bg-background">

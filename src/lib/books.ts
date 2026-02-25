@@ -320,7 +320,7 @@ export async function deleteBook(id: string) {
 // ====================================
 // FUNÇÕES PARA UPLOAD
 // ====================================
-export async function uploadArquivo(id: string | number, file: File): Promise<any> {
+export async function uploadArquivo(id: string | number, file: File): Promise<unknown> {
   const url = `${apiBase}/api/v1/livros/${id}/arquivo`;
   
   const formData = new FormData();
@@ -347,14 +347,14 @@ export async function uploadArquivo(id: string | number, file: File): Promise<an
     }
 
     if (!res.ok) throw new Error(`Failed to upload arquivo: ${res.status}`);
-    return await res.json();
+    return await res.json() as unknown;
   } catch (error) {
     console.error('❌ Erro ao fazer upload:', error);
     throw error;
   }
 }
 
-export async function uploadCapa(id: string | number, file: File): Promise<any> {
+export async function uploadCapa(id: string | number, file: File): Promise<unknown> {
   const url = `${apiBase}/api/v1/livros/${id}/capa`;
   
   const formData = new FormData();
@@ -381,7 +381,7 @@ export async function uploadCapa(id: string | number, file: File): Promise<any> 
     }
 
     if (!res.ok) throw new Error(`Failed to upload capa: ${res.status}`);
-    return await res.json();
+    return await res.json() as unknown;
   } catch (error) {
     console.error('❌ Erro ao fazer upload de capa:', error);
     throw error;

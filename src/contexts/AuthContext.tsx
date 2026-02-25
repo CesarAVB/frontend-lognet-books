@@ -142,7 +142,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsLoading(false);
       }
     },
-    [saveUser]
+    [saveUser, apiBase]
   );
 
   const register = useCallback(
@@ -256,7 +256,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsLoading(false);
       }
     },
-    [saveUser]
+    [saveUser, apiBase]
   );
 
   const logout = useCallback(() => {
