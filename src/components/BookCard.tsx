@@ -5,7 +5,7 @@ import { Book, formatIcons } from '@/lib/books';
 import { useApp } from '@/contexts/app';
 
 interface BookCardProps {
-  item: Book & { capa_key?: string; capaKey?: string };
+  item: Book;
   size?: 'sm' | 'md' | 'lg';
 }
 
@@ -25,31 +25,38 @@ const BookCard: React.FC<BookCardProps> = ({ item, size = 'md' }) => {
   const [loadingCapa, setLoadingCapa] = useState(true);
   const [erroCapa, setErroCapa] = useState(false);
 
-  // ✅ Carregar capa do MinIO
+  // ✅ Carregar capa do novo endpoint
   useEffect(() => {
     const fetchCapa = async () => {
       try {
         setLoadingCapa(true);
         setErroCapa(false);
 
-        // Verificar se tem capa_key (pode ser capa_key ou capaKey)
-        const capaKey = item.capa_key || item.capaKey;
+        // Verificar se tem capa_key
+        const capaKey = item.capaKey;
         
         if (!capaKey) {
+          console.log('⚠️ Livro sem capa_key:', item.id);
           setLoadingCapa(false);
           return;
         }
 
-        const response = await fetch(`/api/v1/livros/${item.id}/capa/link`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('lognet-token')}`,
-          },
-        });
+        console.log('📸 Carregando capa para livro:', item.id);
 
-        if (!response.ok) throw new Error('Erro ao buscar capa');
-
-        const data = await response.json();
-        setCapaUrl(data.url);
+        // ✅ NOVO ENDPOINT: /api/v1/livros/{id}/capa
+        // Esta URL carrega a imagem direto do backend, contornando CORS
+        const capaUrl = `/api/v1/livros/${item.id}/capa`;
+        
+        // Verificar se a URL é válida fazendo um HEAD request
+        const response = await fetch(capaUrl, { method: 'HEAD' });
+        
+        if (response.ok) {
+          console.log('✅ Capa carregada com sucesso');
+          setCapaUrl(capaUrl);
+        } else {
+          console.error('❌ Erro ao carregar capa:', response.status);
+          setErroCapa(true);
+        }
       } catch (err) {
         console.error('❌ Erro ao carregar capa:', err);
         setErroCapa(true);
@@ -59,7 +66,7 @@ const BookCard: React.FC<BookCardProps> = ({ item, size = 'md' }) => {
     };
 
     fetchCapa();
-  }, [item.id, item.capa_key, item.capaKey]);
+  }, [item.id, item.capaKey]);
 
   const sizeClasses = {
     sm: 'w-32',

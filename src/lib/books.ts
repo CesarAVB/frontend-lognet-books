@@ -27,7 +27,6 @@ export interface Book {
   synopsis?: string;
   progress?: number;
   isFavorite?: boolean;
-  capa_key?: string;
   capaKey?: string;
 }
 
