@@ -5,10 +5,13 @@ export interface LayoutContextType {
   setCollapsed: (v: boolean) => void;
 }
 
-export const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
+const defaultLayout: LayoutContextType = {
+  collapsed: false,
+  setCollapsed: () => {},
+};
+
+export const LayoutContext = createContext<LayoutContextType>(defaultLayout);
 
 export const useLayout = (): LayoutContextType => {
-  const ctx = useContext(LayoutContext);
-  if (!ctx) throw new Error('useLayout must be used within a LayoutProvider');
-  return ctx;
+  return useContext(LayoutContext);
 };
